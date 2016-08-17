@@ -1,0 +1,29 @@
+{
+  "name": "aem-api",
+  "version": "0.1.0",
+  "description": "API class to manipulate nodes within AEM from node.",
+  "main": "index.js",
+  "dependencies": {
+    "es6-promise": "^3.2.1",
+    "form-data": "^1.0.0-rc4",
+    "isomorphic-fetch": "^2.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-docs": "documentation readme --format md --section \"API Usage\" -g"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raininglemons/node-aem-api.git"
+  },
+  "author": "Dom England",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raininglemons/node-aem-api/issues"
+  },
+  "homepage": "https://github.com/raininglemons/node-aem-api#readme",
+  "engines": {
+    "node": ">=5.11.0"
+  }
+}
