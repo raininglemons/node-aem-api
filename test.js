@@ -14,6 +14,14 @@ aem
 //.removeFile('/etc/designs/clientlibs/sites/foxybingocom/test2.js')
 //.createFile('/etc/designs/clientlibs/sites/foxybingocom/img/test.png', './L_C24E.tmp.PNG')
 //  .updateFile('/etc/designs/clientlibs/sites/foxybingocom/img/aem.js', './test.js')
-  .moveFile('/etc/designs/clientlibs/sites/bwining2.jpg', '/etc/designs/clientlibs/sites/bwining.jpg')
-  .then(_ => console.log('Awesome success'))
+//  .moveFile('/etc/designs/clientlibs/sites/bwining2.jpg', '/etc/designs/clientlibs/sites/bwining.jpg')
+  .getNode('/etc/designs/clientlibs/sites')
+  .then(node => {
+    console.log('Awesome success', node);
+    return node.getChild('foxybingocom');
+  })
+  .then(node => {
+    console.log('Awesome success', node);
+    return node.getChild('test.js');
+  })
   .catch(e => console.error(e));

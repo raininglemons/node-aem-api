@@ -4,6 +4,7 @@ const mime = require('mime-types');
 const fs = require('fs');
 
 const CRXPayload = require('./CRXPayload');
+const Node = require('./Node');
 
 const CRX_API_ENDPOINT = '/crx/server/crx.default/jcr%3aroot';
 const TOKEN_API_ENDPOINT = '/libs/granite/csrf/token.json';
@@ -71,7 +72,7 @@ class AEM {
 
     // console.log(payload.toString());
 
-    return this.sendRequest(payload.getFormData());
+    return this.postRequest(payload.getFormData());
   }
 
   /**
@@ -93,7 +94,7 @@ class AEM {
 
     // console.log(payload.toString());
 
-    return this.sendRequest(payload.getFormData());
+    return this.postRequest(payload.getFormData());
   }
 
   /**
@@ -110,7 +111,20 @@ class AEM {
 
     // console.log(payload.toString());
 
-    return this.sendRequest(payload.getFormData());
+    return this.postRequest(payload.getFormData());
+  }
+
+  getNode(path) {
+    if (!path) {
+      throw new TypeError('path required as first argument');
+    }
+
+    return new Promise((res, rej) => {
+      this.getRequest(path)
+        .then(resp => resp.json())
+        .then(config => res(new Node(this, path, config)))
+        .catch(rej);
+    })
   }
 
   /**
@@ -136,7 +150,7 @@ class AEM {
 
     // console.log(payload.toString())
 
-    return this.sendRequest(payload.getFormData());
+    return this.postRequest(payload.getFormData());
   }
 
   /**
@@ -188,7 +202,25 @@ class AEM {
 
     // console.log(payload.toString());
 
-    return this.sendRequest(payload.getFormData());
+    return this.postRequest(payload.getFormData());
+  }
+
+  /**
+   * Removes a property from a node
+   * @param path
+   * @param prop
+   * @returns {Promise}
+   */
+  removeProperty(path, prop) {
+    if (!path) {
+      throw new TypeError('path required as first argument');
+    }
+
+    if (!props) {
+      throw new TypeError('object of properties is required as second argument');
+    }
+
+    return this.removeProperties(path, [prop]);
   }
 
   /**
@@ -262,7 +294,7 @@ class AEM {
 
       // console.log(payload.toString())
 
-      return this.sendRequest(payload.getFormData());
+      return this.postRequest(payload.getFormData());
     } else {
       throw new TypeError('second argument must be either a path or a Buffer');
     }
@@ -316,7 +348,7 @@ class AEM {
    * @param formData
    * @returns {Promise}
    */
-  sendRequest(formData) {
+  postRequest(formData) {
     return new Promise((res, rej) => {
       this.getToken()
         .then(TOKEN => {
@@ -328,6 +360,31 @@ class AEM {
               'Referer': this.referrer
             }),
             body: formData
+          })
+            .then(checkStatus)
+            .then(res)
+            .catch(rej);
+        })
+        .catch(rej);
+    })
+  }
+
+  /**
+   * Get node info form crx
+   * @param path
+   * @returns {Promise}
+   */
+  getRequest(path) {
+    return new Promise((res, rej) => {
+      this.getToken()
+        .then(TOKEN => {
+          fetch(this.api.crx + path + '.1.json', {
+            method: 'GET',
+            headers: new Headers({
+              'Authorization': `Basic ${this.auth}`,
+              'CSRF-Token': this.token,
+              'Referer': this.referrer
+            })
           })
             .then(checkStatus)
             .then(res)
