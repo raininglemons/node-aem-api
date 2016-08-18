@@ -19,6 +19,18 @@ class Node {
     });
   }
 
+  relativeToAbsolute(path) {
+    const parts = (this._config.path + '/' + path).replace(/\/\//g, '/').split('/').filter(part => part !== '.');
+    let i = 0;
+    console.log(parts);
+    for (i = 0; i < parts.length; i++) {
+      while (parts[i + 1] === '..') {
+        parts.splice(i, 2);
+      }
+    }
+    return parts.join('/');
+  }
+
   listProperties() {
     return new Promise((res, rej) => {
       this.initializeNode()
@@ -51,7 +63,7 @@ class Node {
           /*
           We have a config
            */
-          child = new Node(this._config.aem, `${this._config.path}/${directChild}`, child);
+          child = new Node(this._config.aem, this.relativeToAbsolute(directChild)/*`${this._config.path}/${directChild}`*/, child);
 
           const newChildren = {};
           newChildren[directChild] = child;
@@ -66,20 +78,47 @@ class Node {
         }
       });
     } else {
-      return this._config.aem.getNode(this._config.path + '/' + path);
+      return this._config.aem.getNode(this.relativeToAbsolute(path)/*this._config.path + '/' + path*/);
     }
   }
 
   createChild(path, type = 'nt:unstructured', props = {}) {
-    return this._config.aem.createNode(this._config.path + '/' + path, type, props);
+    return this._config.aem.createNode(this.relativeToAbsolute(path), type, props);
   }
 
   moveChild(path, destination) {
-    return this._config.aem.moveNode(this._config.path + '/' + path, destination);
+    return this._config.aem.moveNode(this.relativeToAbsolute(path), destination);
   }
 
   removeChild(path) {
-    return this._config.aem.removeNode(this._config.path + '/' + path);
+    return this._config.aem.removeNode(this.relativeToAbsolute(path));
+  }
+
+  createFile(path, file, encoding, mimeType = 'application/octet-stream') {
+    return this._config.aem.createFile(this.relativeToAbsolute(path), file, encoding, mimeType);
+  }
+
+  updateFile(path, file, encoding, mimeType = 'application/octet-stream') {
+    return this._config.aem.updateFile(this.relativeToAbsolute(path), file, encoding, mimeType);
+  }
+
+  removeFile(path) {
+    return this._config.aem.removeFile(this.relativeToAbsolute(path));
+  }
+
+  move(destination) {
+    if (destination.substr(0, 1) !== '/') {
+      /*const pathParts = this._config.path.split('/');
+      pathParts.splice(pathParts.length - 1);
+
+      destination = `${pathParts.join('/')}/${destination}`;*/
+      destination = this.relativeToAbsolute('../' + destination);
+    }
+    return this._config.aem.moveNode(this._config.path, destination);
+  }
+
+  remove() {
+    return this._config.aem.removeNode(this._config.path);
   }
 
   initializeNode() {
