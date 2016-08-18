@@ -105,6 +105,17 @@ Removes properties from a node
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
+### removeProperty
+
+Removes a property from a node
+
+**Parameters**
+
+-   `path`  
+-   `prop`  
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+
 ### createFile
 
 Creates an nt:file
@@ -153,7 +164,7 @@ Removes an nt:file at a given path
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
 
-### sendRequest
+### postRequest
 
 Send request to crx
 
@@ -162,3 +173,120 @@ Send request to crx
 -   `formData`  
 
 Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+
+### getRequest
+
+Get node info form crx
+
+**Parameters**
+
+-   `path`  
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+
+### getProperties
+
+Returns an object of properties
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+
+### getChildren
+
+Returns an object of child nodes
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)** 
+
+### getChild
+
+Returns a child node
+
+**Parameters**
+
+-   `path`  
+
+Returns **Any** 
+
+### createChild
+
+Creates a child node
+
+**Parameters**
+
+-   `path`  
+-   `type`  
+-   `props`  
+
+Returns **([Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) | Any)** 
+
+### moveChild
+
+Moves a child node
+
+**Parameters**
+
+-   `path`  
+-   `destination`  
+
+Returns **(Any | [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise))** 
+
+### removeChild
+
+Removes a child node
+
+**Parameters**
+
+-   `path`  
+
+Returns **([Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) | Any)** 
+
+### createFile
+
+Creates a file relative to current node
+
+**Parameters**
+
+-   `path`  
+-   `file`  
+-   `encoding`  
+-   `mimeType`  
+
+Returns **(Any | [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise))** 
+
+### updateFile
+
+Updates a file relative to current node
+
+**Parameters**
+
+-   `path`  
+-   `file`  
+-   `encoding`  
+-   `mimeType`  
+
+Returns **(Any | [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise))** 
+
+### removeFile
+
+Removes a file relative to current node
+
+**Parameters**
+
+-   `path`  
+
+Returns **(Any | [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise))** 
+
+### move
+
+Moves current node
+
+**Parameters**
+
+-   `destination`  
+
+Returns **(Any | [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise))** 
+
+### remove
+
+Removes current node from repo
+
+Returns **([Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) | Any)** 

@@ -17,17 +17,17 @@ aem
 //  .moveFile('/etc/designs/clientlibs/sites/bwining2.jpg', '/etc/designs/clientlibs/sites/bwining.jpg')
   .getNode('/')
   .then(node => {
-    console.log('Awesome success', node);
+    //console.log('Awesome success', node);
     return node.getChild('etc/designs/clientlibs/sites');
   })
   .then(node => {
-    console.log('Awesome success', node);
+    //console.log('Awesome success', node);
     return node.getChild('foxybingocom');
   })
-  .then(node => {
-    console.log('Awesome success', node);
+  /*.then(node => {
+    //console.log('Awesome success', node);
     return node.updateFile('test.js', './test.js');
-  })
-  .then(node => node.listProperties())
-  .then(node => console.log('Awesome success'))
+  })*/
+  .then(node => node.getChildren())
+  .then(children => console.log('Awesome success', children))
   .catch(e => console.error(e));
