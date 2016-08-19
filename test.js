@@ -16,18 +16,19 @@ aem
 //  .updateFile('/etc/designs/clientlibs/sites/foxybingocom/img/aem.js', './test.js')
 //  .moveFile('/etc/designs/clientlibs/sites/bwining2.jpg', '/etc/designs/clientlibs/sites/bwining.jpg')
   .getNode('/')
+  .then(node => node.getChild('etc'))
   .then(node => {
     //console.log('Awesome success', node);
-    return node.getChild('etc/designs/clientlibs/sites');
+    return node.getChild('designs/clientlibs/sites');
   })
   .then(node => {
     //console.log('Awesome success', node);
-    return node.getChild('foxybingocom');
+    return node.getChild('bwining.jpg');
   })
   /*.then(node => {
     //console.log('Awesome success', node);
     return node.updateFile('test.js', './test.js');
   })*/
-  .then(node => node.getChildren())
-  .then(children => console.log('Awesome success', children))
+  .then(node => node.move('test.jpg'))
+  .then(children => console.log('Awesome success'/*, children*/))
   .catch(e => console.error(e));

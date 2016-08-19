@@ -31,7 +31,8 @@ class Node {
     Object.keys(config)
       .filter(item => item.substr(0, 1) !== ':')
       .forEach(item => {
-        if (config[item]['jcr:primaryType'] !== undefined || (config[item] instanceof Object && !(config[item] instanceof Array))) {
+        if (config[item]['jcr:primaryType'] !== undefined
+          || (config[item] instanceof Object && !(config[item] instanceof Array))) {
           /*
            Item is node
            */
@@ -66,10 +67,21 @@ class Node {
    * @param path
    * @returns {string}
    */
-  relativeToAbsolute(path) {
-    const parts = (this._config.path + '/' + path).replace(/\/\//g, '/').split('/').filter(part => part !== '.');
-    let i = 0;
-    for (i = 0; i < parts.length; i++) {
+  relativeToAbsolute(path, depth = 0) {
+    if (path.substr(0, 1) === '/') {
+      /*
+        Already an absolute link
+         */
+      return path;
+    }
+
+    let prepend = '';
+    for (let i = 0; i > depth; i--) {
+      prepend += '../';
+    }
+
+    const parts = (this._config.path + '/' + prepend + path).replace(/\/\//g, '/').split('/').filter(part => part !== '.');
+    for (let i = 0; i < parts.length; i++) {
       while (parts[i + 1] === '..') {
         parts.splice(i, 2);
       }
@@ -154,13 +166,12 @@ class Node {
 
   /**
    * Moves a child node
-   * @todo fix destination...
    * @param path
    * @param destination
    * @returns {*|Promise}
    */
   moveChild(path, destination) {
-    return this._config.aem.moveNode(this.relativeToAbsolute(path), this.relativeToAbsolute(destination));
+    return this._config.aem.moveNode(this.relativeToAbsolute(path), this.relativeToAbsolute(destination, -1));
   }
 
   /**
@@ -207,19 +218,11 @@ class Node {
 
   /**
    * Moves current node
-   * @todo fix destination
    * @param destination
    * @returns {*|Promise}
    */
   move(destination) {
-    if (destination.substr(0, 1) !== '/') {
-      /*const pathParts = this._config.path.split('/');
-      pathParts.splice(pathParts.length - 1);
-
-      destination = `${pathParts.join('/')}/${destination}`;*/
-      destination = this.relativeToAbsolute('../' + destination);
-    }
-    return this._config.aem.moveNode(this._config.path, destination);
+    return this._config.aem.moveNode(this._config.path, this.relativeToAbsolute(destination, -1));
   }
 
   /**
@@ -256,44 +259,6 @@ class Node {
       });
     }
   }
-}
-
-/**
- * Parses props and children config
- * @private
- * @param config
- * @returns {{props: {}, children: {}}}
- */
-function parseProps(config) {
-  const props = {};
-  const children = {};
-
-  Object.keys(config)
-    .filter(item => item.substr(0, 1) !== ':')
-    .forEach(item => {
-      if (config[item]['jcr:primaryType'] !== undefined || (config[item] instanceof Object && !(config[item] instanceof Array))) {
-        /*
-        Item is node
-         */
-        children[item] = config[item];
-      } else {
-        /*
-        Item is prop
-         */
-        switch (config[':' + item]) {
-          case 'Date':
-            props[item] = new Date(config[item]);
-
-          default:
-            props[item] = config[item];
-        }
-      }
-    });
-
-  Object.freeze(props);
-  Object.freeze(children);
-
-  return { props, children };
 }
 
 module.exports = Node;
