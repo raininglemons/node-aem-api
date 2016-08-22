@@ -34,6 +34,7 @@ aem
   .then(children => console.log('Awesome success'/*, children*//*))
   .catch(e => console.error(e));*/
 
-  aem.deactivateNode('/content/dam/catalogs', true)
+  aem.getNode('/content/dam/catalogs')
+    .then(node => node.activate(true, false, false))
     .then(_ => console.log('success'))
     .catch(e => console.error(e));

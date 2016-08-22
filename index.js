@@ -1,1 +1,1 @@
-module.exports = require('./src/aem');
+module.exports = require('./src/AEM');

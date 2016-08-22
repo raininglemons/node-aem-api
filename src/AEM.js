@@ -60,7 +60,7 @@ class AEM {
    * @param path
    * @param type
    * @param props
-   * @returns {Promise}
+   * @returns {Promise.<Response,Error>}
    */
   createNode(path, type = 'nt:unstructured', props = {}) {
     if (!path) {
@@ -85,7 +85,7 @@ class AEM {
    * Move node to a new path
    * @param path
    * @param destination
-   * @returns {Promise}
+   * @returns {Promise.<Response,Error>}
    */
   moveNode(path, destination) {
     if (!path) {
@@ -106,7 +106,7 @@ class AEM {
   /**
    * Removes a node at a given path
    * @param path
-   * @returns {Promise}
+   * @returns {Promise.<Response,Error>}
    */
   removeNode(path) {
     if (!path) {
@@ -120,6 +120,11 @@ class AEM {
     return this.postRequest(payload.getFormData());
   }
 
+  /**
+   * Fetchs a node from the repo
+   * @param path
+   * @returns {Promise.<Node,Error>}
+   */
   getNode(path) {
     if (!path) {
       throw new TypeError('path required as first argument');
@@ -137,7 +142,7 @@ class AEM {
    * Sets properties on a node
    * @param path
    * @param props
-   * @returns {Promise}
+   * @returns {Promise.<Response,Error>}
    */
   setProperties(path, props) {
     if (!path) {
@@ -164,7 +169,7 @@ class AEM {
    * @param path
    * @param prop
    * @param val
-   * @returns {Promise}
+   * @returns {Promise.<Response,Error>}
    */
   setProperty(path, prop, val) {
     if (!path) {
@@ -189,7 +194,7 @@ class AEM {
    * Removes properties from a node
    * @param path
    * @param props
-   * @returns {Promise}
+   * @returns {Promise.<Response,Error>}
    */
   removeProperties(path, props) {
     if (!path) {
@@ -215,7 +220,7 @@ class AEM {
    * Removes a property from a node
    * @param path
    * @param prop
-   * @returns {Promise}
+   * @returns {Promise.<Response,Error>}
    */
   removeProperty(path, prop) {
     if (!path) {
@@ -235,7 +240,7 @@ class AEM {
    * @param {String | Buffer | fs.ReadStream} file
    * @param {String} encoding
    * @param {String} [mimeType=application/octet-stream]
-   * @returns {Promise}
+   * @returns {Promise.<Response,Error>}
    */
   createFile(path, file, encoding, mimeType = 'application/octet-stream') {
     return this.updateFile(path, file, encoding, mimeType, true);
@@ -248,7 +253,7 @@ class AEM {
    * @param {String} encoding
    * @param {String} [mimeType=application/octet-stream]
    * @param {Boolean} createMode - are we creating a file, or just updating
-   * @returns {Promise}
+   * @returns {Promise.<Response,Error>}
    */
   updateFile(path, file, encoding, mimeType = 'application/octet-stream', createMode = false) {
     if (!path) {
@@ -310,7 +315,7 @@ class AEM {
    * Move file to new destination
    * @param path
    * @param destination
-   * @returns {Promise}
+   * @returns {Promise.<Response,Error>}
    */
   moveFile(path, destination) {
     return this.moveNode(path, destination);
@@ -319,7 +324,7 @@ class AEM {
   /**
    * Removes an nt:file at a given path
    * @param path
-   * @returns {Promise}
+   * @returns {Promise.<Response,Error>}
    */
   removeFile(path) {
     return this.removeNode(path);
@@ -328,7 +333,7 @@ class AEM {
   /**
    * Retrieves a csfr token for a user
    * @private
-   * @returns {Promise}
+   * @returns {Promise.<String,Error>}
    */
   getToken() {
     return new Promise((res, rej) => {
@@ -352,12 +357,12 @@ class AEM {
   /**
    * Activates a node to pub instance
    * @param path
-   * @param treeActivation
-   * @param onlyModified
-   * @param ignoreDeactivated
-   * @returns {Promise}
+   * @param [treeActivation=false]
+   * @param [onlyModified=true]
+   * @param [ignoreDeactivated=true]
+   * @returns {Promise.<Response,Error>}
    */
-  activateNode(path, treeActivation=false, onlyModified=false, ignoreDeactivated=true) {
+  activateNode(path, treeActivation=false, onlyModified=true, ignoreDeactivated=true) {
     return new Promise((res, rej) => {
       this.getToken()
         .then(TOKEN => {
@@ -412,7 +417,7 @@ class AEM {
   /**
    * Deactivates a node
    * @param path
-   * @returns {Promise}
+   * @returns {Promise.<Response,Error>}
    */
   deactivateNode(path) {
     return new Promise((res, rej) => {
@@ -431,8 +436,9 @@ class AEM {
 
   /**
    * Sends a replication request
+   * @private
    * @param params
-   * @returns {Promise}
+   * @returns {Promise.<Response,Error>}
    */
   replicationRequest(params) {
     return new Promise((res, rej) => {
@@ -464,8 +470,9 @@ class AEM {
 
   /**
    * Send request to crx
+   * @private
    * @param formData
-   * @returns {Promise}
+   * @returns {Promise.<Response,Error>}
    */
   postRequest(formData) {
     return new Promise((res, rej) => {
@@ -490,8 +497,9 @@ class AEM {
 
   /**
    * Get node info form crx
+   * @private
    * @param path
-   * @returns {Promise}
+   * @returns {Promise.<Response,Error>}
    */
   getRequest(path) {
     return new Promise((res, rej) => {

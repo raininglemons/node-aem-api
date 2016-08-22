@@ -1,5 +1,11 @@
 class Node {
-  constructor(aem, path, config) {
+  /**
+   * Node class, shouldn't be instantiate manually.
+   * @param aem instance of aem object
+   * @param path path of node
+   * @param [config=null] config for node
+   */
+  constructor(aem, path, config=null) {
     this._config = { path, aem };
 
     if (config) {
@@ -91,7 +97,7 @@ class Node {
 
   /**
    * Returns an object of properties
-   * @returns {Promise}
+   * @returns {Promise.<Object,Error>}
    */
   getProperties() {
     return new Promise((res, rej) => {
@@ -103,7 +109,7 @@ class Node {
 
   /**
    * Returns an object of child nodes
-   * @returns {Promise}
+   * @returns {Promise.<Object,Error>}
    */
   getChildren() {
     return new Promise((res, rej) => {
@@ -116,7 +122,7 @@ class Node {
   /**
    * Returns a child node
    * @param path
-   * @returns {*}
+   * @returns {Promise.<Node,Error>}
    */
   getChild(path) {
     /*
@@ -158,7 +164,7 @@ class Node {
    * @param path
    * @param type
    * @param props
-   * @returns {Promise|*}
+   * @returns {Promise.<Response,Error>}
    */
   createChild(path, type = 'nt:unstructured', props = {}) {
     return this._config.aem.createNode(this.relativeToAbsolute(path), type, props);
@@ -168,7 +174,7 @@ class Node {
    * Moves a child node
    * @param path
    * @param destination
-   * @returns {*|Promise}
+   * @returns {Promise.<Response,Error>}
    */
   moveChild(path, destination) {
     return this._config.aem.moveNode(this.relativeToAbsolute(path), this.relativeToAbsolute(destination, -1));
@@ -177,7 +183,7 @@ class Node {
   /**
    * Removes a child node
    * @param path
-   * @returns {Promise|*}
+   * @returns {Promise.<Response,Error>}
    */
   removeChild(path) {
     return this._config.aem.removeNode(this.relativeToAbsolute(path));
@@ -189,7 +195,7 @@ class Node {
    * @param file
    * @param encoding
    * @param mimeType
-   * @returns {*|Promise}
+   * @returns {Promise.<Response,Error>}
    */
   createFile(path, file, encoding, mimeType = 'application/octet-stream') {
     return this._config.aem.createFile(this.relativeToAbsolute(path), file, encoding, mimeType);
@@ -201,7 +207,7 @@ class Node {
    * @param file
    * @param encoding
    * @param mimeType
-   * @returns {*|Promise}
+   * @returns {Promise.<Response,Error>}
    */
   updateFile(path, file, encoding, mimeType = 'application/octet-stream') {
     return this._config.aem.updateFile(this.relativeToAbsolute(path), file, encoding, mimeType);
@@ -210,7 +216,7 @@ class Node {
   /**
    * Removes a file relative to current node
    * @param path
-   * @returns {*|Promise}
+   * @returns {Promise.<Response,Error>}
    */
   removeFile(path) {
     return this._config.aem.removeFile(this.relativeToAbsolute(path));
@@ -219,7 +225,7 @@ class Node {
   /**
    * Moves current node
    * @param destination
-   * @returns {*|Promise}
+   * @returns {Promise.<Response,Error>}
    */
   move(destination) {
     return this._config.aem.moveNode(this._config.path, this.relativeToAbsolute(destination, -1));
@@ -227,16 +233,27 @@ class Node {
 
   /**
    * Removes current node from repo
-   * @returns {Promise|*}
+   * @returns {Promise.<Response,Error>}
    */
   remove() {
     return this._config.aem.removeNode(this._config.path);
   }
 
+  /**
+   * Activates node to pub instance
+   * @param [treeActivation=false]
+   * @param [onlyModified=true]
+   * @param [ignoreDeactivated=true]
+   * @returns {Promise.<Response,Error>}
+   */
   activate(...args) {
     return this._config.aem.activateNode(this._config.path, ...args);
   }
 
+  /**
+   * Deactivates node
+   * @returns {Promise.<Response,Error>}
+   */
   deactivate() {
     return this._config.aem.deactivateNode(this._config.path);
   }
@@ -245,7 +262,7 @@ class Node {
    * Initializes the node with props (some nodes can be constructed without props for an efficient "lazyload"). May
    * be called on construct if config is provided, else is populated on demand.
    * @private
-   * @returns {Promise}
+   * @returns {Promise.<Node,Error>}
    */
   initializeNode() {
     if (this._config.props) {
