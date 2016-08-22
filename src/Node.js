@@ -1,6 +1,7 @@
 class Node {
   /**
    * Node class, shouldn't be instantiate manually.
+   * @private
    * @param aem instance of aem object
    * @param path path of node
    * @param [config=null] config for node

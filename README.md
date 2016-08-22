@@ -259,7 +259,6 @@ Deactivates a node
 **Kind**: global class  
 
 * [Node](#Node)
-    * [new Node(aem, path, [config])](#new_Node_new)
     * [.getProperties()](#Node+getProperties) ⇒ <code>Promise.&lt;Object, Error&gt;</code>
     * [.getChildren()](#Node+getChildren) ⇒ <code>Promise.&lt;Object, Error&gt;</code>
     * [.getChild(path)](#Node+getChild) ⇒ <code>Promise.&lt;Node, Error&gt;</code>
@@ -273,18 +272,6 @@ Deactivates a node
     * [.remove()](#Node+remove) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
     * [.activate([treeActivation], [onlyModified], [ignoreDeactivated])](#Node+activate) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
     * [.deactivate()](#Node+deactivate) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-
-<a name="new_Node_new"></a>
-
-### new Node(aem, path, [config])
-Node class, shouldn't be instantiate manually.
-
-
-| Param | Default | Description |
-| --- | --- | --- |
-| aem |  | instance of aem object |
-| path |  | path of node |
-| [config] | <code></code> | config for node |
 
 <a name="Node+getProperties"></a>
 
