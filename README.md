@@ -1,5 +1,7 @@
 # node-aem-api
 
+Warning this is under development. Tests are sparse or incomplete. Use at your own peril.
+
 ## Installation
 
 ```bash
@@ -27,9 +29,11 @@ aem.createNode('/tmp/myNode')
 
 ## Todo
 
-Change almost all response that return a promise to the http response. They're pretty much useless and should
+1) Change almost all response that return a promise to the http response. They're pretty much useless and should
 remain "behind closed doors". You only want a node object to mess with or an error. Then promise chaining becomes
 a lot more viable.
+
+1) Tests
 
 ## API
 
