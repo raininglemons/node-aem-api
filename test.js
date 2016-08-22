@@ -5,6 +5,7 @@ const AEM = require('./index');
  */
 
 const aem = new AEM('http://localhost', 4502, 'admin', 'admin');
+/*
 aem
 //.createNode('/etc/designs/clientlibs/sites/foxybingocom/img', 'nt:folder')
 //.then(_ => aem.createFile('/etc/designs/clientlibs/sites/foxybingocom/img/test.png', './L_C24E.tmp.PNG'))
@@ -28,7 +29,11 @@ aem
   /*.then(node => {
     //console.log('Awesome success', node);
     return node.updateFile('test.js', './test.js');
-  })*/
+  })*//*
   .then(node => node.move('test.jpg'))
-  .then(children => console.log('Awesome success'/*, children*/))
-  .catch(e => console.error(e));
+  .then(children => console.log('Awesome success'/*, children*//*))
+  .catch(e => console.error(e));*/
+
+  aem.deactivateNode('/content/dam/catalogs', true)
+    .then(_ => console.log('success'))
+    .catch(e => console.error(e));

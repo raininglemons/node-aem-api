@@ -233,6 +233,14 @@ class Node {
     return this._config.aem.removeNode(this._config.path);
   }
 
+  activate(...args) {
+    return this._config.aem.activateNode(this._config.path, ...args);
+  }
+
+  deactivate() {
+    return this._config.aem.deactivateNode(this._config.path);
+  }
+
   /**
    * Initializes the node with props (some nodes can be constructed without props for an efficient "lazyload"). May
    * be called on construct if config is provided, else is populated on demand.

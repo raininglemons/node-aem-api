@@ -9,6 +9,8 @@ const Node = require('./Node');
 const CRX_API_ENDPOINT = '/crx/server/crx.default/jcr%3aroot';
 const TOKEN_API_ENDPOINT = '/libs/granite/csrf/token.json';
 const CRX_REFERER = '/crx/de/index.jsp';
+const ACTIVATION_TREE_API_ENDPOINT = '/etc/replication/treeactivation.html';
+const REPLICATION_API_ENDPOINT = '/crx/de/replication.jsp';
 
 /**
  * Verifies we have a successful response.
@@ -42,6 +44,10 @@ class AEM {
       api: {
         crx: `${host}:${port}${CRX_API_ENDPOINT}`,
         token: `${host}:${port}${TOKEN_API_ENDPOINT}`,
+        activate: {
+          tree: `${host}:${port}${ACTIVATION_TREE_API_ENDPOINT}`,
+        },
+        replication: `${host}:${port}${REPLICATION_API_ENDPOINT}`,
       },
       referer: `${host}:${port}${CRX_REFERER}`,
       auth: new Buffer(`${username}:${password}`).toString('base64'),
@@ -340,6 +346,119 @@ class AEM {
           })
           .catch(rej);
       }
+    });
+  }
+
+  /**
+   * Activates a node to pub instance
+   * @param path
+   * @param treeActivation
+   * @param onlyModified
+   * @param ignoreDeactivated
+   * @returns {Promise}
+   */
+  activateNode(path, treeActivation=false, onlyModified=false, ignoreDeactivated=true) {
+    return new Promise((res, rej) => {
+      this.getToken()
+        .then(TOKEN => {
+          if (treeActivation) {
+            /* Tree activation */
+
+            const props = {
+              path,
+              _charset_: 'UTF-8',
+              onlymodified: onlyModified,
+              ignoredeactivated: ignoreDeactivated,
+              cmd: 'activate',
+              ':cq_csrf_token': TOKEN,
+            };
+
+            const body = Object.keys(props).map(key => {
+              return encodeURIComponent(key) + '=' + encodeURIComponent(props[key]);
+            }, {}).join('&');
+
+            fetch(this.api.activate.tree, {
+              method: 'POST',
+              headers: new Headers({
+                'Authorization': `Basic ${this.auth}`,
+                'CSRF-Token': this.token,
+                'Referer': this.referrer,
+                'Content-Type': 'application/x-www-form-urlencoded',
+              }),
+              body: body,
+            })
+              .then(checkStatus)
+              .then(res)
+              .catch(rej);
+          } else {
+            /* Single node activation */
+
+            const params = {
+              path,
+              _charset_: 'UTF-8',
+              action: 'replicate',
+            };
+
+            this.replicationRequest(params)
+              .then(checkStatus)
+              .then(res)
+              .catch(rej);
+          }
+        })
+        .catch(rej);
+    });
+  }
+
+  /**
+   * Deactivates a node
+   * @param path
+   * @returns {Promise}
+   */
+  deactivateNode(path) {
+    return new Promise((res, rej) => {
+      const params = {
+        path,
+        _charset_: 'UTF-8',
+        action: 'replicatedelete',
+      };
+
+      this.replicationRequest(params)
+        .then(checkStatus)
+        .then(res)
+        .catch(rej);
+    });
+  }
+
+  /**
+   * Sends a replication request
+   * @param params
+   * @returns {Promise}
+   */
+  replicationRequest(params) {
+    return new Promise((res, rej) => {
+      this.getToken()
+        .then(TOKEN => {
+          params[':cq_csrf_token'] = TOKEN;
+
+          const body = Object.keys(params).map(key => {
+            return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+          }, {}).join('&');
+
+          fetch(this.api.replication, {
+            method: 'POST',
+            headers: new Headers({
+              'Authorization': `Basic ${this.auth}`,
+              'CSRF-Token': this.token,
+              'Referer': this.referrer,
+              'Content-Type': 'application/x-www-form-urlencoded',
+            }),
+            body: body,
+          })
+            .then(checkStatus)
+            .then(res)
+            .catch(rej);
+        })
+        .catch(rej);
     });
   }
 
