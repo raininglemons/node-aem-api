@@ -36,6 +36,8 @@ a lot more viable.
 
 ## API
 
+> HTML documentation can be [viewed here](https://cdn.rawgit.com/raininglemons/node-aem-api/master/documentation/index.html)
+
 # AEM
 
 ## constructor
