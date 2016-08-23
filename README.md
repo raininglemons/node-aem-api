@@ -36,374 +36,343 @@ a lot more viable.
 
 ## API
 
-## Classes
+# AEM
 
-<dl>
-<dt><a href="#AEM">AEM</a></dt>
-<dd></dd>
-<dt><a href="#Node">Node</a></dt>
-<dd></dd>
-</dl>
+## constructor
 
-<a name="AEM"></a>
-
-## AEM
-**Kind**: global class  
-
-* [AEM](#AEM)
-    * [new AEM(host, port, username, password)](#new_AEM_new)
-    * [.createNode(path, type, props)](#AEM+createNode) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.moveNode(path, destination)](#AEM+moveNode) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.removeNode(path)](#AEM+removeNode) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.getNode(path)](#AEM+getNode) ⇒ <code>Promise.&lt;Node, Error&gt;</code>
-    * [.setProperties(path, props)](#AEM+setProperties) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.setProperty(path, prop, val)](#AEM+setProperty) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.removeProperties(path, props)](#AEM+removeProperties) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.removeProperty(path, prop)](#AEM+removeProperty) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.createFile(path, file, encoding, [mimeType])](#AEM+createFile) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.updateFile(path, file, encoding, [mimeType], createMode)](#AEM+updateFile) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.moveFile(path, destination)](#AEM+moveFile) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.removeFile(path)](#AEM+removeFile) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.activateNode(path, [treeActivation], [onlyModified], [ignoreDeactivated])](#AEM+activateNode) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.deactivateNode(path)](#AEM+deactivateNode) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-
-<a name="new_AEM_new"></a>
-
-### new AEM(host, port, username, password)
 Primes the AEM object for instance manipulation
 
+**Parameters**
 
-| Param |
-| --- |
-| host | 
-| port | 
-| username | 
-| password | 
+-   `host`  
+-   `port`  
+-   `username`  
+-   `password`  
 
-<a name="AEM+createNode"></a>
+## createNode
 
-### AEM.createNode(path, type, props) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
 Creates a node at a given path
 
-**Kind**: instance method of <code>[AEM](#AEM)</code>  
+**Parameters**
 
-| Param | Default |
-| --- | --- |
-| path |  | 
-| type | <code>nt:unstructured</code> | 
-| props |  | 
+-   `path`  
+-   `type`  
+-   `props`  
 
-<a name="AEM+moveNode"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### AEM.moveNode(path, destination) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+## moveNode
+
 Move node to a new path
 
-**Kind**: instance method of <code>[AEM](#AEM)</code>  
+**Parameters**
 
-| Param |
-| --- |
-| path | 
-| destination | 
+-   `path`  
+-   `destination`  
 
-<a name="AEM+removeNode"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### AEM.removeNode(path) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+## removeNode
+
 Removes a node at a given path
 
-**Kind**: instance method of <code>[AEM](#AEM)</code>  
+**Parameters**
 
-| Param |
-| --- |
-| path | 
+-   `path`  
 
-<a name="AEM+getNode"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;null, [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### AEM.getNode(path) ⇒ <code>Promise.&lt;Node, Error&gt;</code>
+## getNode
+
 Fetchs a node from the repo
 
-**Kind**: instance method of <code>[AEM](#AEM)</code>  
+**Parameters**
 
-| Param |
-| --- |
-| path | 
+-   `path`  
 
-<a name="AEM+setProperties"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### AEM.setProperties(path, props) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+## setProperties
+
 Sets properties on a node
 
-**Kind**: instance method of <code>[AEM](#AEM)</code>  
+**Parameters**
 
-| Param |
-| --- |
-| path | 
-| props | 
+-   `path`  
+-   `props`  
 
-<a name="AEM+setProperty"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### AEM.setProperty(path, prop, val) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+## setProperty
+
 Sets a property on a given node
 
-**Kind**: instance method of <code>[AEM](#AEM)</code>  
+**Parameters**
 
-| Param |
-| --- |
-| path | 
-| prop | 
-| val | 
+-   `path`  
+-   `prop`  
+-   `val`  
 
-<a name="AEM+removeProperties"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### AEM.removeProperties(path, props) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+## removeProperties
+
 Removes properties from a node
 
-**Kind**: instance method of <code>[AEM](#AEM)</code>  
+**Parameters**
 
-| Param |
-| --- |
-| path | 
-| props | 
+-   `path`  
+-   `props` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
 
-<a name="AEM+removeProperty"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### AEM.removeProperty(path, prop) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+## removeProperty
+
 Removes a property from a node
 
-**Kind**: instance method of <code>[AEM](#AEM)</code>  
+**Parameters**
 
-| Param |
-| --- |
-| path | 
-| prop | 
+-   `path`  
+-   `prop`  
 
-<a name="AEM+createFile"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### AEM.createFile(path, file, encoding, [mimeType]) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+## createFile
+
 Creates an nt:file
 
-**Kind**: instance method of <code>[AEM](#AEM)</code>  
+**Parameters**
 
-| Param | Type | Default |
-| --- | --- | --- |
-| path | <code>String</code> |  | 
-| file | <code>String</code> &#124; <code>Buffer</code> &#124; <code>fs.ReadStream</code> |  | 
-| encoding | <code>String</code> |  | 
-| [mimeType] | <code>String</code> | <code>application/octet-stream</code> | 
+-   `path` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `file` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Buffer](https://nodejs.org/api/buffer.html) | fs.ReadStream)** 
+-   `encoding` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `mimeType` **\[[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]**  (optional, default `application/octet-stream`)
 
-<a name="AEM+updateFile"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### AEM.updateFile(path, file, encoding, [mimeType], createMode) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+## updateFile
+
 Updates an nt:file
 
-**Kind**: instance method of <code>[AEM](#AEM)</code>  
+**Parameters**
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| path | <code>String</code> |  |  |
-| file | <code>String</code> &#124; <code>Buffer</code> &#124; <code>fs.ReadStream</code> |  |  |
-| encoding | <code>String</code> |  |  |
-| [mimeType] | <code>String</code> | <code>application/octet-stream</code> |  |
-| createMode | <code>Boolean</code> | <code>false</code> | are we creating a file, or just updating |
+-   `path` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `file` **([String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Buffer](https://nodejs.org/api/buffer.html) | fs.ReadStream)** 
+-   `encoding` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `mimeType` **\[[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)]**  (optional, default `application/octet-stream`)
+-   `createMode` **\[[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)](default false)** are we creating a file, or just updating
 
-<a name="AEM+moveFile"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### AEM.moveFile(path, destination) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+## moveFile
+
 Move file to new destination
 
-**Kind**: instance method of <code>[AEM](#AEM)</code>  
+**Parameters**
 
-| Param |
-| --- |
-| path | 
-| destination | 
+-   `path`  
+-   `destination`  
 
-<a name="AEM+removeFile"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### AEM.removeFile(path) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+## removeFile
+
 Removes an nt:file at a given path
 
-**Kind**: instance method of <code>[AEM](#AEM)</code>  
+**Parameters**
 
-| Param |
-| --- |
-| path | 
+-   `path`  
 
-<a name="AEM+activateNode"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;null, [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### AEM.activateNode(path, [treeActivation], [onlyModified], [ignoreDeactivated]) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+## activateNode
+
 Activates a node to pub instance
 
-**Kind**: instance method of <code>[AEM](#AEM)</code>  
+**Parameters**
 
-| Param | Default |
-| --- | --- |
-| path |  | 
-| [treeActivation] | <code>false</code> | 
-| [onlyModified] | <code>true</code> | 
-| [ignoreDeactivated] | <code>true</code> | 
+-   `path`  
+-   `treeActivation`   (optional, default `false`)
+-   `onlyModified`   (optional, default `true`)
+-   `ignoreDeactivated`   (optional, default `true`)
 
-<a name="AEM+deactivateNode"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### AEM.deactivateNode(path) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+## deactivateNode
+
 Deactivates a node
 
-**Kind**: instance method of <code>[AEM](#AEM)</code>  
+**Parameters**
 
-| Param |
-| --- |
-| path | 
+-   `path`  
 
-<a name="Node"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-## Node
-**Kind**: global class  
+# Node
 
-* [Node](#Node)
-    * [.getProperties()](#Node+getProperties) ⇒ <code>Promise.&lt;Object, Error&gt;</code>
-    * [.getChildren()](#Node+getChildren) ⇒ <code>Promise.&lt;Object, Error&gt;</code>
-    * [.getChild(path)](#Node+getChild) ⇒ <code>Promise.&lt;Node, Error&gt;</code>
-    * [.createChild(path, type, props)](#Node+createChild) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.moveChild(path, destination)](#Node+moveChild) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.removeChild(path)](#Node+removeChild) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.createFile(path, file, encoding, mimeType)](#Node+createFile) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.updateFile(path, file, encoding, mimeType)](#Node+updateFile) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.removeFile(path)](#Node+removeFile) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.move(destination)](#Node+move) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.remove()](#Node+remove) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.activate([treeActivation], [onlyModified], [ignoreDeactivated])](#Node+activate) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-    * [.deactivate()](#Node+deactivate) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+## setProperties
 
-<a name="Node+getProperties"></a>
+Sets properties on a node
 
-### node.getProperties() ⇒ <code>Promise.&lt;Object, Error&gt;</code>
+**Parameters**
+
+-   `props`  
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
+
+## setProperty
+
+Sets a property on a given node
+
+**Parameters**
+
+-   `prop`  
+-   `val`  
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
+
+## removeProperties
+
+Removes properties from a node
+
+**Parameters**
+
+-   `props` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
+
+## removeProperty
+
+Removes a property from a node
+
+**Parameters**
+
+-   `prop`  
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
+
+## getProperties
+
 Returns an object of properties
 
-**Kind**: instance method of <code>[Node](#Node)</code>  
-<a name="Node+getChildren"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### node.getChildren() ⇒ <code>Promise.&lt;Object, Error&gt;</code>
+## getChildren
+
 Returns an object of child nodes
 
-**Kind**: instance method of <code>[Node](#Node)</code>  
-<a name="Node+getChild"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### node.getChild(path) ⇒ <code>Promise.&lt;Node, Error&gt;</code>
+## getChild
+
 Returns a child node
 
-**Kind**: instance method of <code>[Node](#Node)</code>  
+**Parameters**
 
-| Param |
-| --- |
-| path | 
+-   `path`  
 
-<a name="Node+createChild"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### node.createChild(path, type, props) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+## createChild
+
 Creates a child node
 
-**Kind**: instance method of <code>[Node](#Node)</code>  
+**Parameters**
 
-| Param | Default |
-| --- | --- |
-| path |  | 
-| type | <code>nt:unstructured</code> | 
-| props |  | 
+-   `path`  
+-   `type`  
+-   `props`  
 
-<a name="Node+moveChild"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### node.moveChild(path, destination) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-Moves a child node
+## moveChild
 
-**Kind**: instance method of <code>[Node](#Node)</code>  
+Moves a child node, returns the child node
 
-| Param |
-| --- |
-| path | 
-| destination | 
+**Parameters**
 
-<a name="Node+removeChild"></a>
+-   `path`  
+-   `destination`  
 
-### node.removeChild(path) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
+
+## removeChild
+
 Removes a child node
 
-**Kind**: instance method of <code>[Node](#Node)</code>  
+**Parameters**
 
-| Param |
-| --- |
-| path | 
+-   `path`  
 
-<a name="Node+createFile"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;null, [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### node.createFile(path, file, encoding, mimeType) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-Creates a file relative to current node
+## createFile
 
-**Kind**: instance method of <code>[Node](#Node)</code>  
+Creates a file relative to current node, returns new nt:file node
 
-| Param | Default |
-| --- | --- |
-| path |  | 
-| file |  | 
-| encoding |  | 
-| mimeType | <code>application/octet-stream</code> | 
+**Parameters**
 
-<a name="Node+updateFile"></a>
+-   `path`  
+-   `file`  
+-   `encoding`  
+-   `mimeType`  
 
-### node.updateFile(path, file, encoding, mimeType) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-Updates a file relative to current node
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-**Kind**: instance method of <code>[Node](#Node)</code>  
+## updateFile
 
-| Param | Default |
-| --- | --- |
-| path |  | 
-| file |  | 
-| encoding |  | 
-| mimeType | <code>application/octet-stream</code> | 
+Updates a file relative to current node, returns nt:file node
 
-<a name="Node+removeFile"></a>
+**Parameters**
 
-### node.removeFile(path) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+-   `path`  
+-   `file`  
+-   `encoding`  
+-   `mimeType`  
+
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
+
+## removeFile
+
 Removes a file relative to current node
 
-**Kind**: instance method of <code>[Node](#Node)</code>  
+**Parameters**
 
-| Param |
-| --- |
-| path | 
+-   `path`  
 
-<a name="Node+move"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;null, [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### node.move(destination) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
-Moves current node
+## move
 
-**Kind**: instance method of <code>[Node](#Node)</code>  
+Moves current node, returns updated node
 
-| Param |
-| --- |
-| destination | 
+**Parameters**
 
-<a name="Node+remove"></a>
+-   `destination`  
 
-### node.remove() ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
+
+## remove
+
 Removes current node from repo
 
-**Kind**: instance method of <code>[Node](#Node)</code>  
-<a name="Node+activate"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;null, [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### node.activate([treeActivation], [onlyModified], [ignoreDeactivated]) ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+## activate
+
 Activates node to pub instance
 
-**Kind**: instance method of <code>[Node](#Node)</code>  
+**Parameters**
 
-| Param | Default |
-| --- | --- |
-| [treeActivation] | <code>false</code> | 
-| [onlyModified] | <code>true</code> | 
-| [ignoreDeactivated] | <code>true</code> | 
+-   `treeActivation`   (optional, default `false`)
+-   `onlyModified`   (optional, default `true`)
+-   `ignoreDeactivated`   (optional, default `true`)
+-   `args` **...Any** 
 
-<a name="Node+deactivate"></a>
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 
 
-### node.deactivate() ⇒ <code>Promise.&lt;Response, Error&gt;</code>
+## deactivate
+
 Deactivates node
 
-**Kind**: instance method of <code>[Node](#Node)</code>  
+Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[Node](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling), [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)>** 

@@ -1,3 +1,6 @@
+/**
+ * @class
+ */
 class Node {
   /**
    * Node class, shouldn't be instantiate manually.
@@ -16,14 +19,14 @@ class Node {
     /*
     Add all useful fns from aem object
      */
-    [
+    /*[
       'setProperties',
       'setProperty',
       'removeProperties',
       'removeProperty',
     ].forEach(fn => {
       this[fn] = aem[fn].bind(aem, path);
-    });
+    });*/
   }
 
   /**
@@ -97,6 +100,43 @@ class Node {
   }
 
   /**
+   * Sets properties on a node
+   * @param props
+   * @returns {Promise.<Node,Error>}
+   */
+  setProperties(props) {
+    return this._config.aem.setProperties(this._config.path, props);
+  }
+
+  /**
+   * Sets a property on a given node
+   * @param prop
+   * @param val
+   * @returns {Promise.<Node,Error>}
+   */
+  setProperty(prop, val) {
+    return this._config.aem.setProperty(this._config.path, prop, val);
+  }
+
+  /**
+   * Removes properties from a node
+   * @param {Array<String>} props
+   * @returns {Promise.<Node,Error>}
+   */
+  removeProperties(props) {
+    return this._config.aem.removeProperties(this._config.path, props);
+  }
+
+  /**
+   * Removes a property from a node
+   * @param prop
+   * @returns {Promise.<Node,Error>}
+   */
+  removeProperty(prop) {
+    return this._config.aem.removeProperty(this._config.path, prop);
+  }
+
+  /**
    * Returns an object of properties
    * @returns {Promise.<Object,Error>}
    */
@@ -165,17 +205,17 @@ class Node {
    * @param path
    * @param type
    * @param props
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<Node,Error>}
    */
   createChild(path, type = 'nt:unstructured', props = {}) {
     return this._config.aem.createNode(this.relativeToAbsolute(path), type, props);
   }
 
   /**
-   * Moves a child node
+   * Moves a child node, returns the child node
    * @param path
    * @param destination
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<Node,Error>}
    */
   moveChild(path, destination) {
     return this._config.aem.moveNode(this.relativeToAbsolute(path), this.relativeToAbsolute(destination, -1));
@@ -184,31 +224,31 @@ class Node {
   /**
    * Removes a child node
    * @param path
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<null,Error>}
    */
   removeChild(path) {
     return this._config.aem.removeNode(this.relativeToAbsolute(path));
   }
 
   /**
-   * Creates a file relative to current node
+   * Creates a file relative to current node, returns new nt:file node
    * @param path
    * @param file
    * @param encoding
    * @param mimeType
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<Node,Error>}
    */
   createFile(path, file, encoding, mimeType = 'application/octet-stream') {
     return this._config.aem.createFile(this.relativeToAbsolute(path), file, encoding, mimeType);
   }
 
   /**
-   * Updates a file relative to current node
+   * Updates a file relative to current node, returns nt:file node
    * @param path
    * @param file
    * @param encoding
    * @param mimeType
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<Node,Error>}
    */
   updateFile(path, file, encoding, mimeType = 'application/octet-stream') {
     return this._config.aem.updateFile(this.relativeToAbsolute(path), file, encoding, mimeType);
@@ -217,16 +257,16 @@ class Node {
   /**
    * Removes a file relative to current node
    * @param path
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<null,Error>}
    */
   removeFile(path) {
     return this._config.aem.removeFile(this.relativeToAbsolute(path));
   }
 
   /**
-   * Moves current node
+   * Moves current node, returns updated node
    * @param destination
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<Node,Error>}
    */
   move(destination) {
     return this._config.aem.moveNode(this._config.path, this.relativeToAbsolute(destination, -1));
@@ -234,7 +274,7 @@ class Node {
 
   /**
    * Removes current node from repo
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<null,Error>}
    */
   remove() {
     return this._config.aem.removeNode(this._config.path);
@@ -245,7 +285,7 @@ class Node {
    * @param [treeActivation=false]
    * @param [onlyModified=true]
    * @param [ignoreDeactivated=true]
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<Node,Error>}
    */
   activate(...args) {
     return this._config.aem.activateNode(this._config.path, ...args);
@@ -253,7 +293,7 @@ class Node {
 
   /**
    * Deactivates node
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<Node,Error>}
    */
   deactivate() {
     return this._config.aem.deactivateNode(this._config.path);

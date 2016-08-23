@@ -34,7 +34,20 @@ aem
   .then(children => console.log('Awesome success'/*, children*//*))
   .catch(e => console.error(e));*/
 
-  aem.getNode('/content/dam/catalogs')
-    .then(node => node.activate(true, false, false))
-    .then(_ => console.log('success'))
-    .catch(e => console.error(e));
+  aem
+    //.createNode('/tmp/duck3', 'nt:unstructured')
+    .getNode('/tmp/duck3')
+    //.updateFile('/tmp/test.js', './test.js')
+    //.then(node => node.setProperty('now', new Date()))
+    .then(node => node.setProperties({
+      'now': new Date(),
+      'hello': 'can ya hear me?',
+    }))/**/
+    //.then(node => node.removeProperties(['now', 'hello']))
+    //.then(node => node.removeProperty('hello'))
+    //.then(node => node.activate(true, false, false))
+    //.then(node => node.deactivate())
+    //.then(node => node.getChildren())
+    //.then(children => children['jcr:content'].getProperties())
+    .then(_ => console.log('success', _))
+    .catch(e => console.error(e, e.stack));

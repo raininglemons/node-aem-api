@@ -28,6 +28,10 @@ function checkStatus(response) {
   }
 }
 
+
+/**
+ * @class
+ */
 class AEM {
   /**
    * Primes the AEM object for instance manipulation
@@ -60,7 +64,7 @@ class AEM {
    * @param path
    * @param type
    * @param props
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<Node,Error>}
    */
   createNode(path, type = 'nt:unstructured', props = {}) {
     if (!path) {
@@ -78,14 +82,19 @@ class AEM {
 
     // console.log(payload.toString());
 
-    return this.postRequest(payload.getFormData());
+    return new Promise((res, rej) => {
+      this.postRequest(payload.getFormData())
+        .then(_ => this.getNode(path))
+        .then(res)
+        .catch(rej);
+    });
   }
 
   /**
    * Move node to a new path
    * @param path
    * @param destination
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<Node,Error>}
    */
   moveNode(path, destination) {
     if (!path) {
@@ -100,13 +109,18 @@ class AEM {
 
     // console.log(payload.toString());
 
-    return this.postRequest(payload.getFormData());
+    return new Promise((res, rej) => {
+      this.postRequest(payload.getFormData())
+        .then(_ => this.getNode(destination))
+        .then(res)
+        .catch(rej);
+    });
   }
 
   /**
    * Removes a node at a given path
    * @param path
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<null,Error>}
    */
   removeNode(path) {
     if (!path) {
@@ -116,8 +130,11 @@ class AEM {
     const payload = new CRXPayload().removeNode(path);
 
     // console.log(payload.toString());
-
-    return this.postRequest(payload.getFormData());
+    return new Promise((res, rej) => {
+      this.postRequest(payload.getFormData())
+        .then(_ => res(null))
+        .catch(rej);
+    });
   }
 
   /**
@@ -142,7 +159,7 @@ class AEM {
    * Sets properties on a node
    * @param path
    * @param props
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<Node,Error>}
    */
   setProperties(path, props) {
     if (!path) {
@@ -160,8 +177,12 @@ class AEM {
     });
 
     // console.log(payload.toString())
-
-    return this.postRequest(payload.getFormData());
+    return new Promise((res, rej) => {
+      this.postRequest(payload.getFormData())
+        .then(_ => this.getNode(path))
+        .then(res)
+        .catch(rej);
+    });
   }
 
   /**
@@ -169,7 +190,7 @@ class AEM {
    * @param path
    * @param prop
    * @param val
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<Node,Error>}
    */
   setProperty(path, prop, val) {
     if (!path) {
@@ -193,8 +214,8 @@ class AEM {
   /**
    * Removes properties from a node
    * @param path
-   * @param props
-   * @returns {Promise.<Response,Error>}
+   * @param {Array<String>} props
+   * @returns {Promise.<Node,Error>}
    */
   removeProperties(path, props) {
     if (!path) {
@@ -213,21 +234,27 @@ class AEM {
 
     // console.log(payload.toString());
 
-    return this.postRequest(payload.getFormData());
+    // return this.postRequest(payload.getFormData());
+    return new Promise((res, rej) => {
+      this.postRequest(payload.getFormData())
+        .then(_ => this.getNode(path))
+        .then(res)
+        .catch(rej);
+    });
   }
 
   /**
    * Removes a property from a node
    * @param path
    * @param prop
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<Node,Error>}
    */
   removeProperty(path, prop) {
     if (!path) {
       throw new TypeError('path required as first argument');
     }
 
-    if (!props) {
+    if (!prop) {
       throw new TypeError('object of properties is required as second argument');
     }
 
@@ -240,7 +267,7 @@ class AEM {
    * @param {String | Buffer | fs.ReadStream} file
    * @param {String} encoding
    * @param {String} [mimeType=application/octet-stream]
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<Node,Error>}
    */
   createFile(path, file, encoding, mimeType = 'application/octet-stream') {
     return this.updateFile(path, file, encoding, mimeType, true);
@@ -253,7 +280,7 @@ class AEM {
    * @param {String} encoding
    * @param {String} [mimeType=application/octet-stream]
    * @param {Boolean} createMode - are we creating a file, or just updating
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<Node,Error>}
    */
   updateFile(path, file, encoding, mimeType = 'application/octet-stream', createMode = false) {
     if (!path) {
@@ -305,7 +332,13 @@ class AEM {
 
       // console.log(payload.toString())
 
-      return this.postRequest(payload.getFormData());
+      //return this.postRequest(payload.getFormData());
+      return new Promise((res, rej) => {
+        this.postRequest(payload.getFormData())
+          .then(_ => this.getNode(path))
+          .then(res)
+          .catch(rej);
+      });
     } else {
       throw new TypeError('second argument must be either a path or a Buffer');
     }
@@ -315,7 +348,7 @@ class AEM {
    * Move file to new destination
    * @param path
    * @param destination
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<Node,Error>}
    */
   moveFile(path, destination) {
     return this.moveNode(path, destination);
@@ -324,7 +357,7 @@ class AEM {
   /**
    * Removes an nt:file at a given path
    * @param path
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<null,Error>}
    */
   removeFile(path) {
     return this.removeNode(path);
@@ -360,78 +393,80 @@ class AEM {
    * @param [treeActivation=false]
    * @param [onlyModified=true]
    * @param [ignoreDeactivated=true]
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<Node,Error>}
    */
   activateNode(path, treeActivation=false, onlyModified=true, ignoreDeactivated=true) {
     return new Promise((res, rej) => {
-      this.getToken()
-        .then(TOKEN => {
-          if (treeActivation) {
-            /* Tree activation */
+        this.getToken()
+          .then(TOKEN => {
+            if (treeActivation) {
+              /* Tree activation */
 
-            const props = {
-              path,
-              _charset_: 'UTF-8',
-              onlymodified: onlyModified,
-              ignoredeactivated: ignoreDeactivated,
-              cmd: 'activate',
-              ':cq_csrf_token': TOKEN,
-            };
+              const props = {
+                path,
+                _charset_: 'UTF-8',
+                onlymodified: onlyModified,
+                ignoredeactivated: ignoreDeactivated,
+                cmd: 'activate',
+                ':cq_csrf_token': TOKEN,
+              };
 
-            const body = Object.keys(props).map(key => {
-              return encodeURIComponent(key) + '=' + encodeURIComponent(props[key]);
-            }, {}).join('&');
+              const body = Object.keys(props).map(key => {
+                return encodeURIComponent(key) + '=' + encodeURIComponent(props[key]);
+              }, {}).join('&');
 
-            fetch(this.api.activate.tree, {
-              method: 'POST',
-              headers: new Headers({
-                'Authorization': `Basic ${this.auth}`,
-                'CSRF-Token': this.token,
-                'Referer': this.referrer,
-                'Content-Type': 'application/x-www-form-urlencoded',
-              }),
-              body: body,
-            })
-              .then(checkStatus)
-              .then(res)
-              .catch(rej);
-          } else {
-            /* Single node activation */
+              fetch(this.api.activate.tree, {
+                method: 'POST',
+                headers: new Headers({
+                  'Authorization': `Basic ${this.auth}`,
+                  'CSRF-Token': TOKEN,
+                  'Referer': this.referrer,
+                  'Content-Type': 'application/x-www-form-urlencoded',
+                }),
+                body: body,
+              })
+                .then(checkStatus)
+                .then(res)
+                .catch(rej);
+            } else {
+              /* Single node activation */
 
-            const params = {
-              path,
-              _charset_: 'UTF-8',
-              action: 'replicate',
-            };
+              const params = {
+                path,
+                _charset_: 'UTF-8',
+                action: 'replicate',
+              };
 
-            this.replicationRequest(params)
-              .then(checkStatus)
-              .then(res)
-              .catch(rej);
-          }
-        })
-        .catch(rej);
-    });
+              this.replicationRequest(params)
+                .then(checkStatus)
+                .then(res)
+                .catch(rej);
+            }
+          })
+          .catch(rej);
+      })
+      .then(_ => this.getNode(path));
   }
 
   /**
    * Deactivates a node
    * @param path
-   * @returns {Promise.<Response,Error>}
+   * @returns {Promise.<Node,Error>}
    */
   deactivateNode(path) {
     return new Promise((res, rej) => {
-      const params = {
-        path,
-        _charset_: 'UTF-8',
-        action: 'replicatedelete',
-      };
+        const params = {
+          path,
+          _charset_: 'UTF-8',
+          action: 'replicatedelete',
+        };
 
-      this.replicationRequest(params)
-        .then(checkStatus)
-        .then(res)
-        .catch(rej);
-    });
+        this.replicationRequest(params)
+          .then(checkStatus)
+          .then(res)
+          .catch(rej);
+      })
+      .then(_ => this.getNode(path));
   }
 
   /**
@@ -454,7 +489,7 @@ class AEM {
             method: 'POST',
             headers: new Headers({
               'Authorization': `Basic ${this.auth}`,
-              'CSRF-Token': this.token,
+              'CSRF-Token': TOKEN,
               'Referer': this.referrer,
               'Content-Type': 'application/x-www-form-urlencoded',
             }),
@@ -482,8 +517,8 @@ class AEM {
             method: 'POST',
             headers: new Headers({
               'Authorization': `Basic ${this.auth}`,
-              'CSRF-Token': this.token,
-              'Referer': this.referrer
+              'CSRF-Token': TOKEN,
+              'Referer': this.referrer,
             }),
             body: formData
           })
@@ -509,8 +544,8 @@ class AEM {
             method: 'GET',
             headers: new Headers({
               'Authorization': `Basic ${this.auth}`,
-              'CSRF-Token': this.token,
-              'Referer': this.referrer
+              'CSRF-Token': TOKEN,
+              'Referer': this.referrer,
             })
           })
             .then(checkStatus)
