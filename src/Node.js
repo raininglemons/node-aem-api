@@ -1,3 +1,6 @@
+/**
+ * @class
+ */
 class Node {
   /**
    * Node class, shouldn't be instantiate manually.
@@ -16,40 +19,15 @@ class Node {
     /*
     Add all useful fns from aem object
      */
-    [
+    /*[
       'setProperties',
       'setProperty',
       'removeProperties',
       'removeProperty',
     ].forEach(fn => {
       this[fn] = aem[fn].bind(aem, path);
-    });
+    });*/
   }
-
-  /**
-   * Sets properties on a node
-   * @param props
-   * @returns {Promise.<Node,Error>}
-   */
-
-  /**
-   * Sets a property on a given node
-   * @param prop
-   * @param val
-   * @returns {Promise.<Node,Error>}
-   */
-
-  /**
-   * Removes properties from a node
-   * @param {Array<String>} props
-   * @returns {Promise.<Node,Error>}
-   */
-
-  /**
-   * Removes a property from a node
-   * @param prop
-   * @returns {Promise.<Node,Error>}
-   */
 
   /**
    * Parse props and children config
@@ -119,6 +97,43 @@ class Node {
       }
     }
     return parts.join('/');
+  }
+
+  /**
+   * Sets properties on a node
+   * @param props
+   * @returns {Promise.<Node,Error>}
+   */
+  setProperties(props) {
+    return this._config.aem.setProperties(this._config.path, props);
+  }
+
+  /**
+   * Sets a property on a given node
+   * @param prop
+   * @param val
+   * @returns {Promise.<Node,Error>}
+   */
+  setProperty(prop, val) {
+    return this._config.aem.setProperty(this._config.path, prop, val);
+  }
+
+  /**
+   * Removes properties from a node
+   * @param {Array<String>} props
+   * @returns {Promise.<Node,Error>}
+   */
+  removeProperties(props) {
+    return this._config.aem.removeProperties(this._config.path, props);
+  }
+
+  /**
+   * Removes a property from a node
+   * @param prop
+   * @returns {Promise.<Node,Error>}
+   */
+  removeProperty(prop) {
+    return this._config.aem.removeProperty(this._config.path, prop);
   }
 
   /**

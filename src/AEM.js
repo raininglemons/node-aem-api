@@ -28,6 +28,10 @@ function checkStatus(response) {
   }
 }
 
+
+/**
+ * @class
+ */
 class AEM {
   /**
    * Primes the AEM object for instance manipulation
