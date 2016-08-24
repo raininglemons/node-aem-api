@@ -53,16 +53,7 @@ class AEM {
    * @param port
    * @param username
    * @param password
-   * @param config
-   * @param {string} config.ACTIVATION_TREE_API_ENDPOINT
-   * @param {string} config.CRX_API_ENDPOINT
-   * @param {string} config.CRX_REFERER
-   * @param {string} config.REPLICATION_API_ENDPOINT
-   * @param {string} config.TOKEN_API_ENDPOINT
-   * @param {Object} config.treeActivationParams
-   * @param {Object} config.activationParams
-   * @param {Object} config.deactivationParams
-   * @param {boolean} config.useToken
+   * @param {{ACTIVATION_TREE_API_ENDPOINT: string, CRX_API_ENDPOINT: string, CRX_REFERER: string, REPLICATION_API_ENDPOINT: string, TOKEN_API_ENDPOINT: string, treeActivationParams: Object, activationParams: Object, deactivationParams: Object, useToken: boolean}} config
    */
   constructor(host, port, username, password, config={}) {
     this.config = Object.assign(defaultConfig, config);
