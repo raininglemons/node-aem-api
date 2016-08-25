@@ -28,6 +28,19 @@ function checkStatus(response) {
   }
 }
 
+const defaultConfig = {
+  ACTIVATION_TREE_API_ENDPOINT,
+  CRX_API_ENDPOINT,
+  CRX_REFERER,
+  REPLICATION_API_ENDPOINT,
+  TOKEN_API_ENDPOINT,
+  treeActivationParams: {},   // Optional params to also send along with a tree activation, useful for custom
+                              // tree activation setups.
+  activationParams: {},
+  deactivationParams: {},
+  useToken: true, // For CQ5, this should be set to false
+};
+
 
 /**
  * @class
@@ -35,25 +48,29 @@ function checkStatus(response) {
 class AEM {
   /**
    * Primes the AEM object for instance manipulation
+   * @constructor
    * @param host
    * @param port
    * @param username
    * @param password
+   * @param {{ACTIVATION_TREE_API_ENDPOINT: string, CRX_API_ENDPOINT: string, CRX_REFERER: string, REPLICATION_API_ENDPOINT: string, TOKEN_API_ENDPOINT: string, treeActivationParams: Object, activationParams: Object, deactivationParams: Object, useToken: boolean}} config
    */
-  constructor(host, port, username, password) {
+  constructor(host, port, username, password, config={}) {
+    this.config = Object.assign(defaultConfig, config);
+
     Object.assign(this, {
       host,
       port,
       username,
       api: {
-        crx: `${host}:${port}${CRX_API_ENDPOINT}`,
-        token: `${host}:${port}${TOKEN_API_ENDPOINT}`,
+        crx: `${host}:${port}${this.config.CRX_API_ENDPOINT}`,
+        token: `${host}:${port}${this.config.TOKEN_API_ENDPOINT}`,
         activate: {
-          tree: `${host}:${port}${ACTIVATION_TREE_API_ENDPOINT}`,
+          tree: `${host}:${port}${this.config.ACTIVATION_TREE_API_ENDPOINT}`,
         },
-        replication: `${host}:${port}${REPLICATION_API_ENDPOINT}`,
+        replication: `${host}:${port}${this.config.REPLICATION_API_ENDPOINT}`,
       },
-      referer: `${host}:${port}${CRX_REFERER}`,
+      referer: `${host}:${port}${this.config.CRX_REFERER}`,
       auth: new Buffer(`${username}:${password}`).toString('base64'),
       token: null,
     });
@@ -370,8 +387,8 @@ class AEM {
    */
   getToken() {
     return new Promise((res, rej) => {
-      if (this.token) {
-        res(this.token);
+      if (this.token || !this.config.useToken) {
+        res(this.token || null);
       } else {
         fetch(this.api.token, {headers: new Headers({'Authorization': `Basic ${this.auth}`})})
           .then(resp => resp.json())
@@ -397,54 +414,54 @@ class AEM {
    */
   activateNode(path, treeActivation=false, onlyModified=true, ignoreDeactivated=true) {
     return new Promise((res, rej) => {
-        this.getToken()
-          .then(TOKEN => {
-            if (treeActivation) {
-              /* Tree activation */
+      this.getToken()
+        .then(TOKEN => {
+          if (treeActivation) {
+            /* Tree activation */
 
-              const props = {
-                path,
-                _charset_: 'UTF-8',
-                onlymodified: onlyModified,
-                ignoredeactivated: ignoreDeactivated,
-                cmd: 'activate',
-                ':cq_csrf_token': TOKEN,
-              };
+            const props = Object.assign({
+              path,
+              _charset_: 'UTF-8',
+              onlymodified: onlyModified,
+              ignoredeactivated: ignoreDeactivated,
+              cmd: 'activate',
+              ':cq_csrf_token': TOKEN,
+            }, this.config.treeActivationParams);
 
-              const body = Object.keys(props).map(key => {
-                return encodeURIComponent(key) + '=' + encodeURIComponent(props[key]);
-              }, {}).join('&');
+            const body = Object.keys(props).map(key => {
+              return encodeURIComponent(key) + '=' + encodeURIComponent(props[key]);
+            }, {}).join('&');
 
-              fetch(this.api.activate.tree, {
-                method: 'POST',
-                headers: new Headers({
-                  'Authorization': `Basic ${this.auth}`,
-                  'CSRF-Token': TOKEN,
-                  'Referer': this.referrer,
-                  'Content-Type': 'application/x-www-form-urlencoded',
-                }),
-                body: body,
-              })
-                .then(checkStatus)
-                .then(res)
-                .catch(rej);
-            } else {
-              /* Single node activation */
+            fetch(this.api.activate.tree, {
+              method: 'POST',
+              headers: new Headers({
+                'Authorization': `Basic ${this.auth}`,
+                'CSRF-Token': TOKEN,
+                'Referer': this.referrer,
+                'Content-Type': 'application/x-www-form-urlencoded',
+              }),
+              body: body,
+            })
+              .then(checkStatus)
+              .then(res)
+              .catch(rej);
+          } else {
+            /* Single node activation */
 
-              const params = {
-                path,
-                _charset_: 'UTF-8',
-                action: 'replicate',
-              };
+            const params = Object.assign({
+              path,
+              _charset_: 'UTF-8',
+              action: 'replicate',
+            }, this.config.activationParams);
 
-              this.replicationRequest(params)
-                .then(checkStatus)
-                .then(res)
-                .catch(rej);
-            }
-          })
-          .catch(rej);
-      })
+            this.replicationRequest(params)
+              .then(checkStatus)
+              .then(res)
+              .catch(rej);
+          }
+        })
+        .catch(rej);
+    })
       .then(_ => this.getNode(path));
   }
 
@@ -455,17 +472,17 @@ class AEM {
    */
   deactivateNode(path) {
     return new Promise((res, rej) => {
-        const params = {
-          path,
-          _charset_: 'UTF-8',
-          action: 'replicatedelete',
-        };
+      const params = Object.assign({
+        path,
+        _charset_: 'UTF-8',
+        action: 'replicatedelete',
+      }, this.config.deactivationParams);
 
-        this.replicationRequest(params)
-          .then(checkStatus)
-          .then(res)
-          .catch(rej);
-      })
+      this.replicationRequest(params)
+        .then(checkStatus)
+        .then(res)
+        .catch(rej);
+    })
       .then(_ => this.getNode(path));
   }
 
