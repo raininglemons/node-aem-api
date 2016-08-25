@@ -55,9 +55,9 @@ class CRXPayload {
 
     let description = '';
     if (value instanceof Date) {
-      this.formData.append(`${path}/${property}`, Buffer.from(value.toISOString(), 'utf8'), {contentType: 'jcr-value/date'});
+      this.formData.append(`${path}/${property}`, Buffer.from(value.toISOString(), 'utf8'), { contentType: 'jcr-value/date' });
     } else if (value instanceof Buffer || value instanceof fs.ReadStream) {
-      this.formData.append(`${path}/${property}`, value, {contentType: 'jcr-value/binary'});
+      this.formData.append(`${path}/${property}`, value, { contentType: 'jcr-value/binary' });
     } else {
       description = JSON.stringify(value);
     }

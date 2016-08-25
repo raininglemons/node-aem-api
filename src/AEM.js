@@ -2,6 +2,7 @@ require('es6-promise').polyfill();
 require('isomorphic-fetch');
 const mime = require('mime-types');
 const fs = require('fs');
+const FormData = require('form-data');
 
 const CRXPayload = require('./CRXPayload');
 const Node = require('./Node');
@@ -63,6 +64,7 @@ class AEM {
       port,
       username,
       api: {
+        instance: `${host}:${port}`,
         crx: `${host}:${port}${this.config.CRX_API_ENDPOINT}`,
         token: `${host}:${port}${this.config.TOKEN_API_ENDPOINT}`,
         activate: {
@@ -276,6 +278,75 @@ class AEM {
     }
 
     return this.removeProperties(path, [prop]);
+  }
+
+  createAsset(path, file, mimeType) {
+    if (!path) {
+      throw new TypeError('path required as first argument');
+    }
+
+    if (!file) {
+      throw new TypeError('file is required as second argument');
+    }
+
+    if (!(typeof file === 'string')) {
+      if (!mimeType) {
+        throw new TypeError('mimeType is required as the third argument when a stream or buffer is used');
+      }
+    }
+
+    const pathMatches = path.match(/^(.+)\/([^\/]+)$/);
+    if (!pathMatches) {
+      throw new Error('Error parsing path');
+    }
+    /*
+     Treat strings as a path
+     */
+    if (typeof file === 'string') {
+      return new Promise((res, rej) => {
+        /*
+         ReadStream is prefered, as Buffers can mess up images
+         */
+        const stream = fs.createReadStream(file, { encoding: null });
+        /*
+         Try and guess the mimetype
+         */
+        mimeType = mime.lookup(file) || mimeType;
+
+        console.log(mimeType);
+
+        res(this.createAsset(path, stream, mimeType));
+      })
+    } else if (file instanceof Buffer || file instanceof fs.ReadStream) {
+
+      const parentPath = pathMatches[1];
+      const filename = pathMatches[2];
+
+      const formData = new FormData();
+      formData.append('file', file, { contentType: mimeType, filename });
+      formData.append('_charset_', 'utf-8');
+
+      return new Promise((res, rej) => {
+        this.postRequest(formData, `${this.api.instance}${parentPath}.createasset.html`)
+          .then(_ => this.getNode(path))
+          .then(res)
+          .catch(rej);
+      });
+    } else {
+      throw new TypeError('second argument must be either a path or a Buffer');
+    }
+  }
+
+  updateAsset(path, file, mimeType) {
+    return this.createAsset(path, file, mimeType);
+  }
+
+  moveAsset(path, destination) {
+    return this.moveNode(path, destination);
+  }
+
+  removeAsset(path) {
+    return this.removeNode(path);
   }
 
   /**
@@ -524,13 +595,14 @@ class AEM {
    * Send request to crx
    * @private
    * @param formData
+   * @param [endpoint=this.api.crx]
    * @returns {Promise.<Response,Error>}
    */
-  postRequest(formData) {
+  postRequest(formData, endpoint) {
     return new Promise((res, rej) => {
       this.getToken()
         .then(TOKEN => {
-          fetch(this.api.crx, {
+          fetch(endpoint || this.api.crx, {
             method: 'POST',
             headers: new Headers({
               'Authorization': `Basic ${this.auth}`,

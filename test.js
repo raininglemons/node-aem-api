@@ -35,11 +35,13 @@ aem
   .catch(e => console.error(e));*/
 
   aem
+    //.createDamAsset('/content/dam/pokemon.png', 'squirtle.png')
+    .removeAsset('/content/dam/pokemon.png', '/content/dam/pokemon2.png')
     //.createNode('/tmp/duck3', 'nt:unstructured')
-    .getNode('/tmp/duck3')
+    //.getNode('/tmp/duck3')
     //.updateFile('/tmp/test.js', './test.js')
     //.then(node => node.setProperty('now', new Date()))
-    .then(node => node.setProperties({
+    /*.then(node => node.setProperties({
       'now': new Date(),
       'hello': 'can ya hear me?',
     }))/**/
