@@ -65,7 +65,7 @@ aem
   const next = val => process(it.next(val));
   next();
 })(function *() {
-  const aem = new AEM('http://localhost', 4502, 'admin', 'admin');
+  const aem = new AEM('http://localhost', 4502, 'admin', 'admin', { useToken: false });
 
   const dam = yield aem.getNode('/content/dam');
 
@@ -91,6 +91,9 @@ aem
   yield dam.updateAsset('pokemon.png', 'squirtle.png');
 
   console.log('updated second asset');
+
+  yield dam.removeAsset('pokemon.png');
+  yield dam.removeAsset('pokemon2.png');
 
   console.log('success');
 });
