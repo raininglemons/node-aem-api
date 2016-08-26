@@ -36,4 +36,4 @@ a lot more viable.
 
 ## API
 
-> HTML documentation can be [viewed here](https://cdn.rawgit.com/raininglemons/node-aem-api/7843440d0f43f7be7658d62706aa84c69021edcc/documentation/index.html)
+> HTML documentation can be [viewed here](https://cdn.rawgit.com/raininglemons/node-aem-api/d5efcc758fefb33bf427478b7450a2d24f6990a8/documentation/index.html)
