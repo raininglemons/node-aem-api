@@ -264,6 +264,37 @@ class Node {
   }
 
   /**
+   * Creates an asset relative to current node, returns new nt:file node
+   * @param path
+   * @param file
+   * @param mimeType
+   * @returns {Promise.<Node,Error>}
+   */
+  createAsset(path, file, mimeType) {
+    return this._config.aem.createAsset(this.relativeToAbsolute(path), file, mimeType);
+  }
+
+  /**
+   * Updates an asset relative to current node, returns nt:file node
+   * @param path
+   * @param file
+   * @param mimeType
+   * @returns {Promise.<Node,Error>}
+   */
+  updateAsset(path, file, mimeType) {
+    return this._config.aem.updateAsset(this.relativeToAbsolute(path), file, mimeType);
+  }
+
+  /**
+   * Removes an asset relative to current node
+   * @param path
+   * @returns {Promise.<null,Error>}
+   */
+  removeAsset(path) {
+    return this._config.aem.removeAsset(this.relativeToAbsolute(path));
+  }
+
+  /**
    * Moves current node, returns updated node
    * @param destination
    * @returns {Promise.<Node,Error>}

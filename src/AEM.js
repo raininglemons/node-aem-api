@@ -280,6 +280,13 @@ class AEM {
     return this.removeProperties(path, [prop]);
   }
 
+  /**
+   * Creates a new dam asset
+   * @param path
+   * @param file
+   * @param mimeType
+   * @returns {Promise.<Node,Error>}
+   */
   createAsset(path, file, mimeType) {
     if (!path) {
       throw new TypeError('path required as first argument');
@@ -313,8 +320,6 @@ class AEM {
          */
         mimeType = mime.lookup(file) || mimeType;
 
-        console.log(mimeType);
-
         res(this.createAsset(path, stream, mimeType));
       })
     } else if (file instanceof Buffer || file instanceof fs.ReadStream) {
@@ -337,14 +342,32 @@ class AEM {
     }
   }
 
+  /**
+   * Updates a dam asset
+   * @param path
+   * @param file
+   * @param mimeType
+   * @returns {Promise.<Node, Error>}
+   */
   updateAsset(path, file, mimeType) {
     return this.createAsset(path, file, mimeType);
   }
 
+  /**
+   * Moves an asset to a new path
+   * @param path
+   * @param destination
+   * @returns {Promise.<Node, Error>}
+   */
   moveAsset(path, destination) {
     return this.moveNode(path, destination);
   }
 
+  /**
+   * Removes a dam asset
+   * @param path
+   * @returns {Promise.<null, Error>}
+   */
   removeAsset(path) {
     return this.removeNode(path);
   }

@@ -4,7 +4,7 @@ const AEM = require('./index');
  * Tests, we will get round to unit tests at some point :D
  */
 
-const aem = new AEM('http://localhost', 4502, 'admin', 'admin');
+//const aem = new AEM('http://localhost', 4502, 'admin', 'admin');
 /*
 aem
 //.createNode('/etc/designs/clientlibs/sites/foxybingocom/img', 'nt:folder')
@@ -34,9 +34,11 @@ aem
   .then(children => console.log('Awesome success'/*, children*//*))
   .catch(e => console.error(e));*/
 
-  aem
+//  aem
+    //.getNode('/content/dam')
     //.createDamAsset('/content/dam/pokemon.png', 'squirtle.png')
-    .removeAsset('/content/dam/pokemon.png', '/content/dam/pokemon2.png')
+    //.removeAsset('/content/dam/pokemon.png', '/content/dam/pokemon2.png')
+    //.createAsset('pokemon.png', 'pikachu.png')
     //.createNode('/tmp/duck3', 'nt:unstructured')
     //.getNode('/tmp/duck3')
     //.updateFile('/tmp/test.js', './test.js')
@@ -51,5 +53,44 @@ aem
     //.then(node => node.deactivate())
     //.then(node => node.getChildren())
     //.then(children => children['jcr:content'].getProperties())
-    .then(_ => console.log('success', _))
-    .catch(e => console.error(e, e.stack));
+    //.then(_ => console.log('success', _))
+    //.catch(e => console.error(e, e.stack));
+    //
+
+/* Run code "synchronously" as a generator */
+((g) => {
+  const it = g();
+  const error = e => !console.log(e) && process(it.throw(e));
+  const process = promise => !console.log(promise) && promise.value && promise.value.then(next).catch(error);
+  const next = val => process(it.next(val));
+  next();
+})(function *() {
+  const aem = new AEM('http://localhost', 4502, 'admin', 'admin');
+
+  const dam = yield aem.getNode('/content/dam');
+
+  console.log('got dam');
+
+  const img1 = yield dam.createAsset('pokemon.png', 'pikachu.png');
+
+  console.log('created first asset');
+
+  try {
+    yield img1.move('pokemon2.png');
+  } catch (e) {
+    //console.error(e);
+    throw e;
+  }
+
+  console.log('moved first asset');
+
+  const img2 = yield dam.createAsset('pokemon.png', 'pikachu.png');
+
+  console.log('made second asset');
+
+  yield dam.updateAsset('pokemon.png', 'squirtle.png');
+
+  console.log('updated second asset');
+
+  console.log('success');
+});
