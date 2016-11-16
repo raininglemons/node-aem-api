@@ -12,6 +12,7 @@ const TOKEN_API_ENDPOINT = '/libs/granite/csrf/token.json';
 const CRX_REFERER = '/crx/de/index.jsp';
 const ACTIVATION_TREE_API_ENDPOINT = '/etc/replication/treeactivation.html';
 const REPLICATION_API_ENDPOINT = '/crx/de/replication.jsp';
+const PAGE_VERSION_ENDPOINT = '/bin/wcmcommand';
 
 /**
  * Verifies we have a successful response.
@@ -35,6 +36,7 @@ const defaultConfig = {
   CRX_REFERER,
   REPLICATION_API_ENDPOINT,
   TOKEN_API_ENDPOINT,
+  PAGE_VERSION_ENDPOINT,
   treeActivationParams: {},   // Optional params to also send along with a tree activation, useful for custom
                               // tree activation setups.
   activationParams: {},
@@ -71,6 +73,7 @@ class AEM {
           tree: `${host}:${port}${this.config.ACTIVATION_TREE_API_ENDPOINT}`,
         },
         replication: `${host}:${port}${this.config.REPLICATION_API_ENDPOINT}`,
+        createVersion: `${host}:${port}${this.config.PAGE_VERSION_ENDPOINT}`,
       },
       referer: `${host}:${port}${this.config.CRX_REFERER}`,
       auth: new Buffer(`${username}:${password}`).toString('base64'),
@@ -278,6 +281,39 @@ class AEM {
     }
 
     return this.removeProperties(path, [prop]);
+  }
+
+  /**
+   * Creates a new version of a page
+   * @param path
+   * @param label
+   * @param comment
+   * @returns {Promise}
+   */
+  createVersion(path, label = '', comment = '') {
+    if (!path) {
+      throw new TypeError('path required as first argument');
+    }
+
+    const props = {
+      '_charset_': 'utf-8',
+      ':status': 'browser',
+      'cmd': 'createVersion',
+      'label': label,
+      'comment': comment,
+      'path': path,
+    };
+
+    const body = Object.keys(props).map(key => {
+      return encodeURIComponent(key) + '=' + encodeURIComponent(props[key]);
+    }, {}).join('&');
+
+    return new Promise((res, rej) => {
+      this.postRequest(body, this.api.createVersion)
+        .then(_ => this.getNode(path))
+        .then(res)
+        .catch(rej);
+    });
   }
 
   /**
@@ -625,13 +661,19 @@ class AEM {
     return new Promise((res, rej) => {
       this.getToken()
         .then(TOKEN => {
+          const headers = {
+            'Authorization': `Basic ${this.auth}`,
+            'CSRF-Token': TOKEN,
+            'Referer': this.referrer,
+          };
+
+          if (typeof formData === 'string') {
+            headers['Content-Type'] = 'application/x-www-form-urlencoded';
+          }
+
           fetch(endpoint || this.api.crx, {
             method: 'POST',
-            headers: new Headers({
-              'Authorization': `Basic ${this.auth}`,
-              'CSRF-Token': TOKEN,
-              'Referer': this.referrer,
-            }),
+            headers: new Headers(headers),
             body: formData
           })
             .then(checkStatus)

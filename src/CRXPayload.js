@@ -9,6 +9,7 @@ class CRXPayload {
   constructor() {
     this.data = [];
     this.formData = new FormData();
+    this.formData.append('_charset_', 'utf-8');
   }
 
   createNode(path, primaryType='nt:unstructured') {
@@ -80,7 +81,7 @@ class CRXPayload {
   }
 
   getFormData() {
-    this.formData.append(':diff', this.data.join('\n'));
+    this.formData.append(':diff', this.data.join('\n'), { contentType: 'jcr-value/binary' });
     return this.formData;
   }
 

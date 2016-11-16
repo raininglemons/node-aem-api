@@ -275,6 +275,16 @@ class Node {
   }
 
   /**
+   * Creates a new version of node
+   * @param label
+   * @param comment
+   * @returns {Promise.<Node,Error>}
+   */
+  createVersion(label, comment) {
+    return this._config.aem.createVersion(this._config.path, label, comment);
+  }
+
+  /**
    * Updates an asset relative to current node, returns nt:file node
    * @param path
    * @param file
