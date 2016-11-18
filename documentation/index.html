@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>aem-api 0.1.5 | Documentation</title>
+  <title>aem-api 0.2.0 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
@@ -14,7 +14,7 @@
       <div class='fixed xs-hide fix-3 overflow-auto max-height-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>aem-api</h3>
-          <div class='mb1'><code>0.1.5</code></div>
+          <div class='mb1'><code>0.2.0</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -89,6 +89,12 @@
                         href='#AEM#removeProperty'
                         class='regular pre-open'>
                         #removeProperty
+                      </a></li>
+                      
+                      <li><a
+                        href='#AEM#createVersion'
+                        class='regular pre-open'>
+                        #createVersion
                       </a></li>
                       
                       <li><a
@@ -257,6 +263,12 @@
                       </a></li>
                       
                       <li><a
+                        href='#Node#createVersion'
+                        class='regular pre-open'>
+                        #createVersion
+                      </a></li>
+                      
+                      <li><a
                         href='#Node#updateAsset'
                         class='regular pre-open'>
                         #updateAsset
@@ -317,7 +329,7 @@
       AEM
     </h3>
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/raininglemons/node-aem-api/blob/11db4fb4515a93369343a644ad64fbd1ab42a8bb/src/AEM.js#L49-L670'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/raininglemons/node-aem-api/blob/a207097f54538eb2cf8bbb3374a4554f158b152e/src/AEM.js#L51-L712'>
       <span>src/AEM.js</span>
       </a>
     
@@ -367,7 +379,7 @@
   <p>Primes the AEM object for instance manipulation</p>
 
 
-  <div class='pre p1 fill-light mt0'>new constructor(host: Any, port: Any, username: Any, password: Any, config: [{ACTIVATION_TREE_API_ENDPOINT: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, CRX_API_ENDPOINT: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, CRX_REFERER: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, REPLICATION_API_ENDPOINT: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, TOKEN_API_ENDPOINT: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, treeActivationParams: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, activationParams: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, deactivationParams: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, useToken: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>}](default {}))</div>
+  <div class='pre p1 fill-light mt0'>new constructor(host: any, port: any, username: any, password: any, config: [{ACTIVATION_TREE_API_ENDPOINT: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, CRX_API_ENDPOINT: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, CRX_REFERER: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, REPLICATION_API_ENDPOINT: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, TOKEN_API_ENDPOINT: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, treeActivationParams: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, activationParams: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, deactivationParams: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, useToken: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>}](default {}))</div>
 
   
 
@@ -383,28 +395,28 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>host</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>host</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>port</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>port</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>username</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>username</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>password</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>password</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -452,7 +464,7 @@
   <p>Creates a node at a given path</p>
 
 
-  <div class='pre p1 fill-light mt0'>createNode(path: Any, type: Any, props: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>createNode(path: any, type: any, props: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -468,21 +480,21 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>type</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>type</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>props</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>props</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -530,7 +542,7 @@
   <p>Move node to a new path</p>
 
 
-  <div class='pre p1 fill-light mt0'>moveNode(path: Any, destination: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>moveNode(path: any, destination: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -546,14 +558,14 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>destination</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>destination</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -601,7 +613,7 @@
   <p>Removes a node at a given path</p>
 
 
-  <div class='pre p1 fill-light mt0'>removeNode(path: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;null, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>removeNode(path: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;null, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -617,7 +629,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -665,7 +677,7 @@
   <p>Fetchs a node from the repo</p>
 
 
-  <div class='pre p1 fill-light mt0'>getNode(path: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>getNode(path: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -681,7 +693,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -729,7 +741,7 @@
   <p>Sets properties on a node</p>
 
 
-  <div class='pre p1 fill-light mt0'>setProperties(path: Any, props: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>setProperties(path: any, props: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -745,14 +757,14 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>props</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>props</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -800,7 +812,7 @@
   <p>Sets a property on a given node</p>
 
 
-  <div class='pre p1 fill-light mt0'>setProperty(path: Any, prop: Any, val: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>setProperty(path: any, prop: any, val: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -816,21 +828,21 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>prop</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>prop</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>val</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>val</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -878,7 +890,7 @@
   <p>Removes properties from a node</p>
 
 
-  <div class='pre p1 fill-light mt0'>removeProperties(path: Any, props: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>&gt;): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>removeProperties(path: any, props: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>&gt;): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -894,7 +906,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -949,7 +961,7 @@
   <p>Removes a property from a node</p>
 
 
-  <div class='pre p1 fill-light mt0'>removeProperty(path: Any, prop: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>removeProperty(path: any, prop: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -965,14 +977,14 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>prop</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>prop</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -986,6 +998,84 @@
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='AEM#createVersion'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>createVersion(path, label, comment)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Creates a new version of a page</p>
+
+
+  <div class='pre p1 fill-light mt0'>createVersion(path: any, label: any, comment: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>label</span> <code class='quiet'>(any)</code> 
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>comment</span> <code class='quiet'>(any)</code> 
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
         
       
     
@@ -1020,7 +1110,7 @@
   <p>Creates a new dam asset</p>
 
 
-  <div class='pre p1 fill-light mt0'>createAsset(path: Any, file: Any, mimeType: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>createAsset(path: any, file: any, mimeType: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -1036,21 +1126,21 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>file</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>file</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>mimeType</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>mimeType</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -1098,7 +1188,7 @@
   <p>Updates a dam asset</p>
 
 
-  <div class='pre p1 fill-light mt0'>updateAsset(path: Any, file: Any, mimeType: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>updateAsset(path: any, file: any, mimeType: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -1114,21 +1204,21 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>file</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>file</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>mimeType</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>mimeType</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -1176,7 +1266,7 @@
   <p>Moves an asset to a new path</p>
 
 
-  <div class='pre p1 fill-light mt0'>moveAsset(path: Any, destination: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>moveAsset(path: any, destination: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -1192,14 +1282,14 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>destination</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>destination</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -1247,7 +1337,7 @@
   <p>Removes a dam asset</p>
 
 
-  <div class='pre p1 fill-light mt0'>removeAsset(path: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;null, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>removeAsset(path: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;null, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -1263,7 +1353,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -1493,7 +1583,7 @@
   <p>Move file to new destination</p>
 
 
-  <div class='pre p1 fill-light mt0'>moveFile(path: Any, destination: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>moveFile(path: any, destination: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -1509,14 +1599,14 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>destination</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>destination</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -1564,7 +1654,7 @@
   <p>Removes an nt:file at a given path</p>
 
 
-  <div class='pre p1 fill-light mt0'>removeFile(path: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;null, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>removeFile(path: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;null, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -1580,7 +1670,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -1628,7 +1718,7 @@
   <p>Activates a node to pub instance</p>
 
 
-  <div class='pre p1 fill-light mt0'>activateNode(path: Any, treeActivation: Any, onlyModified: Any, ignoreDeactivated: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>activateNode(path: any, treeActivation: any, onlyModified: any, ignoreDeactivated: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -1644,14 +1734,14 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>treeActivation</span> <code class='quiet'>(Any
+            <span class='code bold'>treeActivation</span> <code class='quiet'>(any
             (default <code>false</code>)
             )</code> 
           </div>
@@ -1660,7 +1750,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>onlyModified</span> <code class='quiet'>(Any
+            <span class='code bold'>onlyModified</span> <code class='quiet'>(any
             (default <code>true</code>)
             )</code> 
           </div>
@@ -1669,7 +1759,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>ignoreDeactivated</span> <code class='quiet'>(Any
+            <span class='code bold'>ignoreDeactivated</span> <code class='quiet'>(any
             (default <code>true</code>)
             )</code> 
           </div>
@@ -1719,7 +1809,7 @@
   <p>Deactivates a node</p>
 
 
-  <div class='pre p1 fill-light mt0'>deactivateNode(path: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>deactivateNode(path: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -1735,7 +1825,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -1786,7 +1876,7 @@
       Node
     </h3>
     
-      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/raininglemons/node-aem-api/blob/11db4fb4515a93369343a644ad64fbd1ab42a8bb/src/Node.js#L4-L359'>
+      <a class='fr fill-darken0 round round pad1x quiet h5' href='https://github.com/raininglemons/node-aem-api/blob/a207097f54538eb2cf8bbb3374a4554f158b152e/src/Node.js#L4-L369'>
       <span>src/Node.js</span>
       </a>
     
@@ -1836,7 +1926,7 @@
   <p>Sets properties on a node</p>
 
 
-  <div class='pre p1 fill-light mt0'>setProperties(props: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>setProperties(props: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -1852,7 +1942,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>props</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>props</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -1900,7 +1990,7 @@
   <p>Sets a property on a given node</p>
 
 
-  <div class='pre p1 fill-light mt0'>setProperty(prop: Any, val: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>setProperty(prop: any, val: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -1916,14 +2006,14 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>prop</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>prop</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>val</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>val</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -2035,7 +2125,7 @@
   <p>Removes a property from a node</p>
 
 
-  <div class='pre p1 fill-light mt0'>removeProperty(prop: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>removeProperty(prop: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -2051,7 +2141,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>prop</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>prop</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -2203,7 +2293,7 @@
   <p>Returns a child node</p>
 
 
-  <div class='pre p1 fill-light mt0'>getChild(path: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>getChild(path: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -2219,7 +2309,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -2267,7 +2357,7 @@
   <p>Creates a child node</p>
 
 
-  <div class='pre p1 fill-light mt0'>createChild(path: Any, type: Any, props: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>createChild(path: any, type: any, props: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -2283,21 +2373,21 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>type</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>type</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>props</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>props</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -2345,7 +2435,7 @@
   <p>Moves a child node, returns the child node</p>
 
 
-  <div class='pre p1 fill-light mt0'>moveChild(path: Any, destination: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>moveChild(path: any, destination: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -2361,14 +2451,14 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>destination</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>destination</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -2416,7 +2506,7 @@
   <p>Removes a child node</p>
 
 
-  <div class='pre p1 fill-light mt0'>removeChild(path: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;null, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>removeChild(path: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;null, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -2432,7 +2522,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -2480,7 +2570,7 @@
   <p>Creates a file relative to current node, returns new nt:file node</p>
 
 
-  <div class='pre p1 fill-light mt0'>createFile(path: Any, file: Any, encoding: Any, mimeType: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>createFile(path: any, file: any, encoding: any, mimeType: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -2496,28 +2586,28 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>file</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>file</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>encoding</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>encoding</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>mimeType</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>mimeType</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -2565,7 +2655,7 @@
   <p>Updates a file relative to current node, returns nt:file node</p>
 
 
-  <div class='pre p1 fill-light mt0'>updateFile(path: Any, file: Any, encoding: Any, mimeType: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>updateFile(path: any, file: any, encoding: any, mimeType: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -2581,28 +2671,28 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>file</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>file</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>encoding</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>encoding</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>mimeType</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>mimeType</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -2650,7 +2740,7 @@
   <p>Removes a file relative to current node</p>
 
 
-  <div class='pre p1 fill-light mt0'>removeFile(path: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;null, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>removeFile(path: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;null, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -2666,7 +2756,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -2714,7 +2804,7 @@
   <p>Creates an asset relative to current node, returns new nt:file node</p>
 
 
-  <div class='pre p1 fill-light mt0'>createAsset(path: Any, file: Any, mimeType: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>createAsset(path: any, file: any, mimeType: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -2730,21 +2820,92 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>file</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>file</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>mimeType</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>mimeType</span> <code class='quiet'>(any)</code> 
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='Node#createVersion'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>createVersion(label, comment)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Creates a new version of node</p>
+
+
+  <div class='pre p1 fill-light mt0'>createVersion(label: any, comment: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>label</span> <code class='quiet'>(any)</code> 
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>comment</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -2792,7 +2953,7 @@
   <p>Updates an asset relative to current node, returns nt:file node</p>
 
 
-  <div class='pre p1 fill-light mt0'>updateAsset(path: Any, file: Any, mimeType: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>updateAsset(path: any, file: any, mimeType: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -2808,21 +2969,21 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>file</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>file</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>mimeType</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>mimeType</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -2870,7 +3031,7 @@
   <p>Removes an asset relative to current node</p>
 
 
-  <div class='pre p1 fill-light mt0'>removeAsset(path: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;null, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>removeAsset(path: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;null, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -2886,7 +3047,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>path</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>path</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -2934,7 +3095,7 @@
   <p>Moves current node, returns updated node</p>
 
 
-  <div class='pre p1 fill-light mt0'>move(destination: Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>move(destination: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -2950,7 +3111,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>destination</span> <code class='quiet'>(Any)</code> 
+            <span class='code bold'>destination</span> <code class='quiet'>(any)</code> 
           </div>
           
         </div>
@@ -3050,7 +3211,7 @@
   <p>Activates node to pub instance</p>
 
 
-  <div class='pre p1 fill-light mt0'>activate(treeActivation: Any, onlyModified: Any, ignoreDeactivated: Any, args: ...Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
+  <div class='pre p1 fill-light mt0'>activate(treeActivation: any, onlyModified: any, ignoreDeactivated: any, args: ...any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling">Node</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>&gt;</div>
 
   
 
@@ -3066,7 +3227,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>treeActivation</span> <code class='quiet'>(Any
+            <span class='code bold'>treeActivation</span> <code class='quiet'>(any
             (default <code>false</code>)
             )</code> 
           </div>
@@ -3075,7 +3236,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>onlyModified</span> <code class='quiet'>(Any
+            <span class='code bold'>onlyModified</span> <code class='quiet'>(any
             (default <code>true</code>)
             )</code> 
           </div>
@@ -3084,7 +3245,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>ignoreDeactivated</span> <code class='quiet'>(Any
+            <span class='code bold'>ignoreDeactivated</span> <code class='quiet'>(any
             (default <code>true</code>)
             )</code> 
           </div>
@@ -3093,7 +3254,7 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>args</span> <code class='quiet'>(...Any)</code> 
+            <span class='code bold'>args</span> <code class='quiet'>(...any)</code> 
           </div>
           
         </div>
