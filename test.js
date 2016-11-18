@@ -58,13 +58,7 @@ aem
     //
 
 /* Run code "synchronously" as a generator */
-((g) => {
-  const it = g();
-  const error = e => !console.log(e) && process(it.throw(e));
-  const process = promise => !console.log(promise) && promise.value && promise.value.then(next).catch(error);
-  const next = val => process(it.next(val));
-  next();
-})(function *() {
+require('./generatorExec')(function *() {
   const aem = new AEM('http://localhost', 4502, 'admin', 'admin', { useToken: false });
 
   const dam = yield aem.getNode('/content/dam');

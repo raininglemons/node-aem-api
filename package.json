@@ -9,7 +9,9 @@
     "isomorphic-fetch": "^2.2.1",
     "mime-types": "^2.1.11"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "colors": "^1.1.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-docs": "documentation readme --format md --section \"API Usage\" -g"
