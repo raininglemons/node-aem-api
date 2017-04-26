@@ -222,6 +222,16 @@ class Node {
   }
 
   /**
+   * Copies a child node to a new destination
+   * @param path
+   * @param destination
+   * @returns {Promise.<Node,Error>}
+   */
+  copyChild(path, destination) {
+    return this._config.aem.copyNode(this.relativeToAbsolute(path), this.relativeToAbsolute(destination));
+  }
+
+  /**
    * Removes a child node
    * @param path
    * @returns {Promise.<null,Error>}
@@ -328,8 +338,8 @@ class Node {
    * @param [ignoreDeactivated=true]
    * @returns {Promise.<Node,Error>}
    */
-  activate(...args) {
-    return this._config.aem.activateNode(this._config.path, ...args);
+  activate(treeActivation=false, onlyModified=true, ignoreDeactivated=treeActivation) {
+    return this._config.aem.activateNode(this._config.path, treeActivation, onlyModified, ignoreDeactivated);
   }
 
   /**
@@ -357,7 +367,7 @@ class Node {
       Init with props
        */
       return new Promise((res, rej) => {
-        this.aem.getNode(this._config.path)
+        this._config.aem.getNode(this._config.path)
           .then(node => {
             Object.assign(this._config, node._config);
             res(this);

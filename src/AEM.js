@@ -140,6 +140,46 @@ class AEM {
   }
 
   /**
+   * Copies a node and its children to a new destination
+   * @param path
+   * @param destination
+   * @returns {Promise.<Node,Error>}
+   */
+  copyNode(path, destination) {
+    if (!path) {
+      throw new TypeError('current path required as first argument');
+    }
+
+    if (!destination) {
+      throw new TypeError('destination path required as second argument');
+    }
+
+
+    return new Promise((res, rej) => {
+      this.getToken()
+        .then(TOKEN => {
+          const headers = {
+            'Authorization': `Basic ${this.auth}`,
+            'CSRF-Token': TOKEN,
+            'Referer': this.referrer,
+            'Destination': this.config.CRX_API_ENDPOINT + encodeURI(destination),
+            'Overwrite': 'T',
+          };
+
+          fetch(this.api.crx + path, {
+            method: 'COPY',
+            headers: new Headers(headers),
+          })
+            .then(checkStatus)
+            .then(() => this.getNode(destination))
+            .then(res)
+            .catch(rej);
+        })
+        .catch(rej);
+    })
+  }
+
+  /**
    * Removes a node at a given path
    * @param path
    * @returns {Promise.<null,Error>}
@@ -542,7 +582,7 @@ class AEM {
    * @param [ignoreDeactivated=true]
    * @returns {Promise.<Node,Error>}
    */
-  activateNode(path, treeActivation=false, onlyModified=true, ignoreDeactivated=true) {
+  activateNode(path, treeActivation=false, onlyModified=true, ignoreDeactivated=treeActivation) {
     return new Promise((res, rej) => {
       this.getToken()
         .then(TOKEN => {
@@ -668,7 +708,7 @@ class AEM {
           };
 
           if (typeof formData === 'string') {
-            headers['Content-Type'] = 'application/x-www-form-urlencoded';
+            headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=utf-8';
           }
 
           fetch(endpoint || this.api.crx, {
@@ -694,7 +734,7 @@ class AEM {
     return new Promise((res, rej) => {
       this.getToken()
         .then(TOKEN => {
-          fetch(this.api.crx + path + '.1.json', {
+          fetch(this.api.crx + encodeURI(path) + '.1.json', {
             method: 'GET',
             headers: new Headers({
               'Authorization': `Basic ${this.auth}`,
