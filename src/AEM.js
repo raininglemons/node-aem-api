@@ -13,6 +13,9 @@ const CRX_REFERER = '/crx/de/index.jsp';
 const ACTIVATION_TREE_API_ENDPOINT = '/etc/replication/treeactivation.html';
 const REPLICATION_API_ENDPOINT = '/crx/de/replication.jsp';
 const PAGE_VERSION_ENDPOINT = '/bin/wcmcommand';
+const LOCK_PAGE_ENDPOINT = '/bin/wcmcommand';
+
+const MESSAGE_REGEX = /<div id="Message">(.+)<\/div></;
 
 /**
  * Verifies we have a successful response.
@@ -24,9 +27,22 @@ function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
   } else {
-    var error = new Error(response.statusText);
-    error.response = response;
-    throw error;
+    /*
+     Try and determine the error message.
+     */
+    return response.text()
+      .then(function(body) {
+        const message = body.match(MESSAGE_REGEX);
+        let errorMessage = response.statusText;
+
+        if (message) {
+          errorMessage += ': ' + message[1];
+        }
+
+        const error = new Error(errorMessage);
+        error.response = response;
+        throw error;
+      });
   }
 }
 
@@ -37,6 +53,7 @@ const defaultConfig = {
   REPLICATION_API_ENDPOINT,
   TOKEN_API_ENDPOINT,
   PAGE_VERSION_ENDPOINT,
+  LOCK_PAGE_ENDPOINT,
   treeActivationParams: {},   // Optional params to also send along with a tree activation, useful for custom
                               // tree activation setups.
   activationParams: {},
@@ -74,6 +91,7 @@ class AEM {
         },
         replication: `${host}:${port}${this.config.REPLICATION_API_ENDPOINT}`,
         createVersion: `${host}:${port}${this.config.PAGE_VERSION_ENDPOINT}`,
+        lockPage: `${host}:${port}${this.config.LOCK_PAGE_ENDPOINT}`,
       },
       referer: `${host}:${port}${this.config.CRX_REFERER}`,
       auth: new Buffer(`${username}:${password}`).toString('base64'),
@@ -633,6 +651,48 @@ class AEM {
         .catch(rej);
     })
       .then(_ => this.getNode(path));
+  }
+
+  /**
+   * Locks a cq:Page
+   * @param path
+   * @returns {Promise.<Node,Error>}
+   */
+  lock(path) {
+    return this.lockRequest(path, true);
+  }
+
+  /**
+   * Unlocks a locked cq:Page
+   * @param path
+   * @returns {Promise.<Node,Error>}
+   */
+  unlock(path) {
+    return this.lockRequest(path, false);
+  }
+
+  lockRequest(path, lock=true) {
+    if (!path) {
+      throw new TypeError('path required as first argument');
+    }
+
+    const props = {
+      '_charset_': 'utf-8',
+      'cmd': lock ? 'lockPage' : 'unlockPage',
+      'path': path,
+    };
+
+    const body = Object.keys(props).map(key => {
+      return encodeURIComponent(key) + '=' + encodeURIComponent(props[key]);
+    }, {}).join('&');
+
+    return new Promise((res, rej) => {
+      this.postRequest(body, this.api.lockPage)
+        .then(checkStatus)
+        .then(_ => this.getNode(path))
+        .then(res)
+        .catch(rej);
+    });
   }
 
   /**

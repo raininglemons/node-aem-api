@@ -40,7 +40,7 @@ const aem = new AEM('http://localhost', 4502, 'admin', 'admin');
 const runner = function *() {
   const myNode = yield aem.createNode('/tmp/myNode');
   
-  yield myNode.activate;
+  yield myNode.activate();
   
   console.warn(`Created my node and activated it, yay, pub o'clock?`);
 }
@@ -53,8 +53,8 @@ remain "behind closed doors". You only want a node object to mess with or an err
 a lot more viable.~~
 1. Tests
 1. Economise on http requests where possible (Node#getProperties i'm looking at you...)
-1. Ability to lock and unlock nodes
+1. ~~Ability to lock and unlock nodes~~
 
 ## API
 
-> HTML documentation can be [viewed here](https://cdn.rawgit.com/raininglemons/node-aem-api/3cae74082f172e62b5e70f5f0be94899038e4b8d/documentation/index.html)
+> HTML documentation can be [viewed here](https://cdn.rawgit.com/raininglemons/node-aem-api/lock-page/documentation/index.html)
