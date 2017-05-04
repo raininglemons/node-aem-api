@@ -351,6 +351,22 @@ class Node {
   }
 
   /**
+   * Locks an unlocked cq:Page
+   * @returns {Promise.<Node,Error>}
+   */
+  lock() {
+    return this._config.aem.lock(this._config.path);
+  }
+
+  /**
+   * Unlocks a locked cq:Page
+   * @returns {Promise.<Node,Error>}
+   */
+  unlock() {
+    return this._config.aem.unlock(this._config.path);
+  }
+
+  /**
    * Initializes the node with props (some nodes can be constructed without props for an efficient "lazyload"). May
    * be called on construct if config is provided, else is populated on demand.
    * @private
