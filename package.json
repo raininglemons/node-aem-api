@@ -1,6 +1,6 @@
 {
   "name": "aem-api",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "API class to manipulate nodes within AEM from node.",
   "main": "index.js",
   "dependencies": {
