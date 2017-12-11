@@ -794,7 +794,7 @@ class AEM {
     return new Promise((res, rej) => {
       this.getToken()
         .then(TOKEN => {
-          fetch(this.api.crx + encodeURI(path) + '.1.json', {
+          fetch(this.api.crx + encodeURIComponent(path) + '.1.json', {
             method: 'GET',
             headers: new Headers({
               'Authorization': `Basic ${this.auth}`,

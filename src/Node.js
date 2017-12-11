@@ -218,7 +218,7 @@ class Node {
    * @returns {Promise.<Node,Error>}
    */
   moveChild(path, destination) {
-    return this._config.aem.moveNode(this.relativeToAbsolute(path), this.relativeToAbsolute(destination, -1));
+    return this._config.aem.moveNode(this.relativeToAbsolute(path), this.relativeToAbsolute(destination));
   }
 
   /**
